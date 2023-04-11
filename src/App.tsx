@@ -1,12 +1,16 @@
+import { ChakraProvider } from "@chakra-ui/react";
+import { BrowserRouter } from "react-router-dom";
 import Layout from "./Components/layout";
-import { ChakraProvider, Container } from "@chakra-ui/react";
+import AppRoter from "./Components/app-router";
 
 function App() {
   return (
     <ChakraProvider>
-      <Layout>
-        <h2>Трелло</h2>
-      </Layout>
+      <BrowserRouter>
+        <Layout>
+          <AppRoter />
+        </Layout>
+      </BrowserRouter>
     </ChakraProvider>
   );
 }

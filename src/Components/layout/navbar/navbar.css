@@ -1,0 +1,17 @@
+.link {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px 8px;
+    border-radius: 8px;
+    color: #667085;
+
+}
+
+.active-link {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px 8px;
+    border-radius: 8px;
+    background: #F2F4F7;
+    color: #1D2939;
+}

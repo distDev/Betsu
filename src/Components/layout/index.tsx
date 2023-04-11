@@ -8,14 +8,14 @@ type Props = {
 
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <Container bg="white" >
+    <Box bg="white" w="100vw">
       <Flex>
         <Box w="20%">
           <Navbar />
         </Box>
-        <Box w="80%">{children}</Box>
+        <Box w="80%" bg='#F2F4F7'>{children}</Box>
       </Flex>
-    </Container>
+    </Box>
   );
 };
 
