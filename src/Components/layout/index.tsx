@@ -13,7 +13,9 @@ const Layout: FC<Props> = ({ children }) => {
         <Box w="20%">
           <Navbar />
         </Box>
-        <Box w="80%" bg='#F2F4F7'>{children}</Box>
+        <Box w="80%" padding="40px" bg="#F2F4F7">
+          {children}
+        </Box>
       </Flex>
     </Box>
   );
