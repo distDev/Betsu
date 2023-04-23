@@ -18,7 +18,7 @@ const KanbanCard: FC<Props> = ({ description, id, index, name }) => {
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
-          <Box bg="white" p="20px" borderRadius="8px">
+          <Box bg="white" p="20px" margin='5px 0px' borderRadius="8px">
             <Stack direction="row" spacing="8px" mb="10px">
               <Box bg="#F8BD1C" w="60px" h="8px" borderRadius="4px" />
               <Box bg="#891BE8" w="60px" h="8px" borderRadius="4px" />

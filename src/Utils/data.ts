@@ -7,7 +7,7 @@ export const boardsData = [
   {
     id: "2",
     name: "Excellent",
-    position: 16454,
+    position: 60000,
   },
 ];
 
@@ -16,7 +16,6 @@ export const listsData = [
     id: "1",
     name: "Нужно сделать",
     idBoard: "1",
-    position: 16454,
     cover: {
       color: "#F8BD1C",
     },
@@ -25,7 +24,14 @@ export const listsData = [
     id: "2",
     name: "В работе",
     idBoard: "1",
-    position: 32908,
+    cover: {
+      color: "#891BE8",
+    },
+  },
+  {
+    id: "3",
+    name: "Сделано",
+    idBoard: "1",
     cover: {
       color: "#891BE8",
     },

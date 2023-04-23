@@ -1,21 +1,29 @@
 import { Box, IconButton, Spacer, Stack, Text } from "@chakra-ui/react";
 import KanbanCard from "../kanban-card";
 import { MdMoreHoriz } from "react-icons/md";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { cardsData } from "../../../Utils/data";
 
 type Props = {
   name: string;
   id: string;
-  position: number;
   index: number;
+  tasks: {
+    id: string;
+    description: string;
+    name: string;
+    position: number;
+    cover: {
+      color: string;
+    };
+    checkLists: never[];
+    idBoard: string;
+    idList: string;
+  }[];
 };
 
-const KanbanColumn: FC<Props> = ({ name, id, position, index }) => {
-  const [cards, setCards] = useState(cardsData);
-
-  const filteredCards = cards.filter((e) => e.idList === id);
+const KanbanColumn: FC<Props> = ({ name, id, tasks, index }) => {
+  const filteredCards = tasks.filter((e) => e.idList === id);
   const sortedCards = [...filteredCards].sort(
     (a, b) => a.position - b.position
   );
@@ -37,7 +45,7 @@ const KanbanColumn: FC<Props> = ({ name, id, position, index }) => {
               bg="white"
               borderRadius="8px"
             >
-              <Text ml="12px">{name }</Text>
+              <Text ml="12px">{name}</Text>
               <Spacer />
               <IconButton
                 aria-label="Дополнительная информация"
@@ -47,10 +55,10 @@ const KanbanColumn: FC<Props> = ({ name, id, position, index }) => {
                 color="textSecond"
               ></IconButton>
             </Box>
-            <Droppable droppableId={id} direction="vertical" type="COLUMN">
+            <Droppable droppableId={id} direction="vertical" type="task">
               {(provided, snapshot) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <Stack direction="column" spacing="10px">
+                  <Stack direction="column">
                     {sortedCards.map((card, i) => (
                       <KanbanCard
                         key={card.id}

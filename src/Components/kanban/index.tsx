@@ -2,65 +2,54 @@ import { Stack } from "@chakra-ui/react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import KanbanColumn from "./kanban-column";
 import { useState } from "react";
-import { listsData } from "../../Utils/data";
+import { cardsData, listsData } from "../../Utils/data";
+import { handleDragColumn, handleDragTask } from "../../Utils/kanban-logic";
 
 type Props = {};
 
 const Kanban = (props: Props) => {
   const [lists, setLists] = useState(listsData);
-  const sortedLists = [...lists].sort((a, b) => a.position - b.position);
+  const [tasks, setTasks] = useState(cardsData);
 
   const handleOnDragEnd = (result: any) => {
-    const start = result.source;
-    const end = result.source;
+    let { source, destination, type } = result;
+    let end = destination.index;
+    let start = source.index;
 
-    let index = end.index;
-    let prevColumn = sortedLists[index - 1];
-    let nextColumn = sortedLists[index + 1];
-    let column = lists.find((e) => e.id === result.draggableId);
-
-    let position = column!.position;
-
-    if (prevColumn && nextColumn) {
-      position = (prevColumn.position + nextColumn.position) / 2;
-    } else if (prevColumn) {
-      position = prevColumn.position + prevColumn.position / 2;
-    } else if (nextColumn) {
-      position = nextColumn.position / 2;
+    if (type === "task") {
+      const changedTasks = handleDragTask({
+        destination,
+        end,
+        result,
+        source,
+        start,
+        tasks,
+      });
+      setTasks(changedTasks);
+    } else {
+      const changedList = handleDragColumn({ lists, result, start, end });
+      setLists(changedList);
     }
-
-    const changePosition = lists.map((e) =>
-      e.id === column!.id
-        ? e
-        : {
-            ...e,
-            position: position,
-          }
-    );
-
-    setLists(changePosition);
-    console.log(result);
   };
 
   return (
     <DragDropContext onDragEnd={(result) => handleOnDragEnd(result)}>
-      <Droppable droppableId="kanban" direction="horizontal" type="BOARD">
+      <Droppable droppableId="kanban" direction="horizontal" type="board">
         {(provided, snapshot) => (
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            style={{ display: "flex", gap: "30px" }}
+            style={{ display: "flex", gap: "30px", overflowX: "scroll" }}
           >
-            {sortedLists.map((item, i) => (
+            {lists.map((item, i) => (
               <KanbanColumn
                 key={item.id}
                 id={item.id}
-                position={item.position}
                 name={item.name}
                 index={i}
+                tasks={tasks}
               />
             ))}
-            {provided.placeholder}
           </div>
         )}
       </Droppable>
