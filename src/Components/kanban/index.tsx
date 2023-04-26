@@ -13,7 +13,7 @@ const Kanban = (props: Props) => {
 
   const handleOnDragEnd = (result: any) => {
     let { source, destination, type } = result;
-    let end = destination.index;
+    let end = destination?.index;
     let start = source.index;
 
     if (type === "task") {
@@ -39,7 +39,7 @@ const Kanban = (props: Props) => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            style={{ display: "flex", gap: "30px", overflowX: "scroll" }}
+            style={{ display: "flex", overflowX: "scroll", height: '85vh' }}
           >
             {lists.map((item, i) => (
               <KanbanColumn
@@ -48,8 +48,10 @@ const Kanban = (props: Props) => {
                 name={item.name}
                 index={i}
                 tasks={tasks}
+                setTasks={setTasks}
               />
             ))}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>

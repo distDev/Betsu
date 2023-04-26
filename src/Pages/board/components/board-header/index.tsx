@@ -9,12 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai";
-import {
-  MdPublic,
-  MdFilterList,
-  MdPeople,
-  MdMoreHoriz,
-} from "react-icons/md";
+import { MdPublic, MdFilterList, MdPeople, MdMoreHoriz } from "react-icons/md";
 
 type Props = {};
 
@@ -50,14 +45,14 @@ const BoardHeader = (props: Props) => {
           bg="white"
           icon={<MdPeople />}
           color="textSecond"
-        ></IconButton>
+        />
         <IconButton
           aria-label="Фильтр"
           variant="solid"
           bg="white"
           icon={<MdFilterList />}
           color="textSecond"
-        ></IconButton>
+        />
         <Stack
           direction="row"
           bg="white"
@@ -90,7 +85,7 @@ const BoardHeader = (props: Props) => {
           bg="white"
           icon={<MdMoreHoriz />}
           color="textSecond"
-        ></IconButton>
+        />
       </Stack>
     </Flex>
   );

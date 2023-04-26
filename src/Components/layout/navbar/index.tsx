@@ -52,6 +52,7 @@ const Navbar = (props: Props) => {
           {navLinks.map(({ name, path }) => (
             <NavLink
               to={path}
+              key={path}
               className={({ isActive }) => (isActive ? "active-link" : "link")}
             >
               {name}

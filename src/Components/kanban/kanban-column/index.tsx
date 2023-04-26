@@ -1,8 +1,9 @@
-import { Box, IconButton, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Center, IconButton, Spacer, Stack, Text } from "@chakra-ui/react";
 import KanbanCard from "../kanban-card";
 import { MdMoreHoriz } from "react-icons/md";
 import { FC } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import AddCard from "../add-card";
 
 type Props = {
   name: string;
@@ -20,13 +21,47 @@ type Props = {
     idBoard: string;
     idList: string;
   }[];
+  setTasks: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: string;
+        description: string;
+        name: string;
+        position: number;
+        cover: {
+          color: string;
+        };
+        checkLists: never[];
+        idBoard: string;
+        idList: string;
+      }[]
+    >
+  >;
 };
 
-const KanbanColumn: FC<Props> = ({ name, id, tasks, index }) => {
+const KanbanColumn: FC<Props> = ({ name, id, tasks, index, setTasks }) => {
   const filteredCards = tasks.filter((e) => e.idList === id);
   const sortedCards = [...filteredCards].sort(
     (a, b) => a.position - b.position
   );
+
+  const handleAddTask = (data: { name: string; position: number }) => {
+    setTasks([
+      ...tasks,
+      {
+        id: "1231",
+        description: "",
+        name: data.name,
+        position: data.position,
+        cover: {
+          color: "",
+        },
+        checkLists: [],
+        idBoard: "1",
+        idList: id,
+      },
+    ]);
+  };
 
   return (
     <Draggable draggableId={id} index={index}>
@@ -36,10 +71,10 @@ const KanbanColumn: FC<Props> = ({ name, id, tasks, index }) => {
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
-          <Box w="360px">
+          <Box w="360px" mr="30px" minH="200px">
             <Box
               p="5px 8px"
-              mb="10px"
+              mb="5px"
               display="flex"
               alignItems="center"
               bg="white"
@@ -58,7 +93,7 @@ const KanbanColumn: FC<Props> = ({ name, id, tasks, index }) => {
             <Droppable droppableId={id} direction="vertical" type="task">
               {(provided, snapshot) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <Stack direction="column">
+                  <Stack direction="column" spacing="0px">
                     {sortedCards.map((card, i) => (
                       <KanbanCard
                         key={card.id}
@@ -68,8 +103,10 @@ const KanbanColumn: FC<Props> = ({ name, id, tasks, index }) => {
                         index={i}
                       />
                     ))}
-                    {provided.placeholder}
                   </Stack>
+
+                  {provided.placeholder}
+                  <AddCard handleAddTask={handleAddTask} sortedCards={sortedCards}/>
                 </div>
               )}
             </Droppable>

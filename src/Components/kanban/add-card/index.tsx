@@ -1,0 +1,96 @@
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  IconButton,
+  Spacer,
+  Stack,
+  Text,
+  Textarea,
+} from "@chakra-ui/react";
+import React, { FC, useState } from "react";
+import { MdMoreHoriz } from "react-icons/md";
+
+type Props = {
+  handleAddTask: (data: any) => void;
+  sortedCards: {
+    id: string;
+    description: string;
+    name: string;
+    position: number;
+    cover: {
+      color: string;
+    };
+    checkLists: never[];
+    idBoard: string;
+    idList: string;
+  }[];
+};
+
+const AddCard: FC<Props> = ({ handleAddTask, sortedCards }) => {
+  const [isAdding, setIsAdding] = useState(false);
+  const [taskName, setTaskName] = useState("");
+
+  const addTask = () => {
+    const newPosition = sortedCards[sortedCards.length - 1].position + 60000;
+
+    handleAddTask({ name: taskName, position: newPosition });
+    setIsAdding((prev) => !prev);
+    setTaskName('')
+  };
+
+  return (
+    <>
+      {!isAdding && (
+        <Box
+          onClick={() => setIsAdding((status) => !status)}
+          w="100%"
+          h="155px"
+          bg="white"
+          borderRadius="8px"
+          m="5px 0px"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          border="1px dashed #CCCCCC"
+          cursor="pointer"
+          _hover={{ opacity: "0.7" }}
+        >
+          <Text>Добавить задачу</Text>
+        </Box>
+      )}
+      {isAdding && (
+        <Box w="100%" bg="white" borderRadius="8px" m="5px 0px" p="10px">
+          <Box mb="10px">
+            <Textarea
+              value={taskName}
+              onChange={(e) => setTaskName(e.target.value)}
+            />
+          </Box>
+          <Stack direction="row">
+            <ButtonGroup size="sm">
+              <Button onClick={addTask}>Добавить</Button>
+              <Button
+                onClick={() => setIsAdding((status) => !status)}
+                colorScheme="red"
+              >
+                Отменить
+              </Button>
+            </ButtonGroup>
+            <Spacer />
+            <IconButton
+              aria-label="Дополнительная информация"
+              variant="solid"
+              bg="white"
+              size="sm"
+              icon={<MdMoreHoriz />}
+              color="textSecond"
+            />
+          </Stack>
+        </Box>
+      )}
+    </>
+  );
+};
+
+export default AddCard;
