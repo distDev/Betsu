@@ -28,14 +28,7 @@ export const listsData = [
       color: "#891BE8",
     },
   },
-  {
-    id: "3",
-    name: "Сделано",
-    idBoard: "1",
-    cover: {
-      color: "#891BE8",
-    },
-  },
+  
 ];
 
 export const cardsData = [

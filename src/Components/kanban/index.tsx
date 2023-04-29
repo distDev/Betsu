@@ -1,9 +1,10 @@
-import { Stack } from "@chakra-ui/react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import KanbanColumn from "./kanban-column";
 import { useState } from "react";
 import { cardsData, listsData } from "../../Utils/data";
 import { handleDragColumn, handleDragTask } from "../../Utils/kanban-logic";
+import AddColumn from "./add-column";
+import { nanoid } from "nanoid";
 
 type Props = {};
 
@@ -32,6 +33,20 @@ const Kanban = (props: Props) => {
     }
   };
 
+  const handleAddColumn = (name: string) => {
+    setLists([
+      ...lists,
+      {
+        id: nanoid(),
+        cover: {
+          color: "#F8BD1C",
+        },
+        name,
+        idBoard: "1",
+      },
+    ]);
+  };
+
   return (
     <DragDropContext onDragEnd={(result) => handleOnDragEnd(result)}>
       <Droppable droppableId="kanban" direction="horizontal" type="board">
@@ -39,7 +54,7 @@ const Kanban = (props: Props) => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            style={{ display: "flex", overflowX: "scroll", height: '85vh' }}
+            style={{ display: "flex", overflowX: "scroll", height: "85vh" }}
           >
             {lists.map((item, i) => (
               <KanbanColumn
@@ -52,6 +67,7 @@ const Kanban = (props: Props) => {
               />
             ))}
             {provided.placeholder}
+            <AddColumn handleAddColumn={handleAddColumn}/>
           </div>
         )}
       </Droppable>

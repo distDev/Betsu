@@ -75,10 +75,8 @@ export const handleDragTask = ({
   if (destination.droppableId === source.droppableId) {
     newArr.splice(start, 1);
     newArr.splice(end, 0, currentTask!);
-    console.log("Таска добавлена в тот же список:", newArr);
   } else {
     newArr.splice(end, 0, currentTask!);
-    console.log("Таска добавлена в другой список:", newArr);
   }
 
   // Поиск карточек, которые расположены рядом
@@ -89,17 +87,14 @@ export const handleDragTask = ({
   // Формула Trello для определения позиции карточки
   if (prevTask && nextTask) {
     position = (prevTask.position + nextTask.position) / 2;
-    console.log("сработала 1, данные:", prevTask, nextTask);
   } else if (prevTask) {
     position = prevTask.position + prevTask.position / 2;
-    console.log("сработала 2, данные:", prevTask);
   } else if (nextTask) {
     position = nextTask.position / 2;
-    console.log("сработала 3, данные:", nextTask);
   }
 
-  // Меняю позицию нужной таски в массиве и ее idList
-  // Если карточка была перенесена в другой список
+  // Изменение позиции нужной таски в массиве и ее idList
+  // если карточка была перенесена в другой список
   const changedPosition = tasks.map((e) =>
     e.id === currentTask!.id
       ? {
@@ -109,6 +104,5 @@ export const handleDragTask = ({
         }
       : e
   );
-  console.log(result)
   return changedPosition;
 };

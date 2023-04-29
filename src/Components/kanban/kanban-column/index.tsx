@@ -1,9 +1,10 @@
-import { Box, Center, IconButton, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Spacer, Stack, Text } from "@chakra-ui/react";
+import { nanoid } from "nanoid";
 import KanbanCard from "../kanban-card";
-import { MdMoreHoriz } from "react-icons/md";
 import { FC } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import AddCard from "../add-card";
+import KanbanColumnMenu from "./kanban-column-menu";
 
 type Props = {
   name: string;
@@ -49,7 +50,7 @@ const KanbanColumn: FC<Props> = ({ name, id, tasks, index, setTasks }) => {
     setTasks([
       ...tasks,
       {
-        id: "1231",
+        id: nanoid(),
         description: "",
         name: data.name,
         position: data.position,
@@ -82,13 +83,7 @@ const KanbanColumn: FC<Props> = ({ name, id, tasks, index, setTasks }) => {
             >
               <Text ml="12px">{name}</Text>
               <Spacer />
-              <IconButton
-                aria-label="Дополнительная информация"
-                variant="solid"
-                bg="white"
-                icon={<MdMoreHoriz />}
-                color="textSecond"
-              ></IconButton>
+              <KanbanColumnMenu />
             </Box>
             <Droppable droppableId={id} direction="vertical" type="task">
               {(provided, snapshot) => (
@@ -104,9 +99,11 @@ const KanbanColumn: FC<Props> = ({ name, id, tasks, index, setTasks }) => {
                       />
                     ))}
                   </Stack>
-
                   {provided.placeholder}
-                  <AddCard handleAddTask={handleAddTask} sortedCards={sortedCards}/>
+                  <AddCard
+                    handleAddTask={handleAddTask}
+                    sortedCards={sortedCards}
+                  />
                 </div>
               )}
             </Droppable>

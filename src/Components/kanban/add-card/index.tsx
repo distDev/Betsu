@@ -32,11 +32,18 @@ const AddCard: FC<Props> = ({ handleAddTask, sortedCards }) => {
   const [taskName, setTaskName] = useState("");
 
   const addTask = () => {
-    const newPosition = sortedCards[sortedCards.length - 1].position + 60000;
+    // Если массив пустой, то ставлю дефолтную позицию
+    // иначе беру последнюю карточку из массива и ее позицию
+    const newPosition = () => {
+      if (sortedCards.length === 0) {
+        return 60000;
+      }
+      return sortedCards[sortedCards.length - 1].position + 60000;
+    };
 
     handleAddTask({ name: taskName, position: newPosition });
     setIsAdding((prev) => !prev);
-    setTaskName('')
+    setTaskName("");
   };
 
   return (

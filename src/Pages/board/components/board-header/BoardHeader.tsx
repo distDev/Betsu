@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai";
 import { MdPublic, MdFilterList, MdPeople, MdMoreHoriz } from "react-icons/md";
+import BoardHeaderMenu from "./header-menu/BoardHeaderMenu";
 
 type Props = {};
 
@@ -79,13 +80,7 @@ const BoardHeader = (props: Props) => {
             Календарь
           </Button>
         </Stack>
-        <IconButton
-          aria-label="Дополнительная информация"
-          variant="solid"
-          bg="white"
-          icon={<MdMoreHoriz />}
-          color="textSecond"
-        />
+        <BoardHeaderMenu />
       </Stack>
     </Flex>
   );
