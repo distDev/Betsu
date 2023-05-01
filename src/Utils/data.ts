@@ -76,7 +76,7 @@ export const cardsData = [
   {
     id: "5r2332r23r",
     description: "",
-    name: "Добавить на страницы head и описание",
+    name: "Добавить на страницы head и описание развернутое",
     position: 32908,
     cover: { color: "#1AD698" },
     checkLists: [],
