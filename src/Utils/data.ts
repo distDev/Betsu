@@ -1,11 +1,13 @@
 export const boardsData = [
   {
     id: "1",
+    idBoard: '1',
     name: "Fortuna",
     position: 16454,
   },
   {
     id: "2",
+    idBoard: '2',
     name: "Excellent",
     position: 60000,
   },

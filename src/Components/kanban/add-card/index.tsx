@@ -41,7 +41,7 @@ const AddCard: FC<Props> = ({ handleAddTask, sortedCards }) => {
       return sortedCards[sortedCards.length - 1].position + 60000;
     };
 
-    handleAddTask({ name: taskName, position: newPosition });
+    handleAddTask({ name: taskName, position: newPosition() });
     setIsAdding((prev) => !prev);
     setTaskName("");
   };
@@ -84,15 +84,6 @@ const AddCard: FC<Props> = ({ handleAddTask, sortedCards }) => {
                 Отменить
               </Button>
             </ButtonGroup>
-            <Spacer />
-            <IconButton
-              aria-label="Дополнительная информация"
-              variant="solid"
-              bg="white"
-              size="sm"
-              icon={<MdMoreHoriz />}
-              color="textSecond"
-            />
           </Stack>
         </Box>
       )}

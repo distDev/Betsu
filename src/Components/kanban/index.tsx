@@ -26,6 +26,7 @@ const Kanban = (props: Props) => {
         start,
         tasks,
       });
+      console.log(changedTasks)
       setTasks(changedTasks);
     } else {
       const changedList = handleDragColumn({ lists, result, start, end });
