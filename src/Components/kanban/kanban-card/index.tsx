@@ -1,15 +1,7 @@
 import {
   Box,
-  Button,
   Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
   Flex,
-  Input,
   Spacer,
   Stack,
   Text,
@@ -17,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { FC, useRef } from "react";
 import { Draggable } from "react-beautiful-dnd";
+import KanbanCardDetail from "../kanban-card-details";
 
 type Props = {
   description?: string;
@@ -78,30 +71,12 @@ const KanbanCard: FC<Props> = ({ description, id, index, name }) => {
       </Draggable>
 
       {/* Детальная информация о карточке */}
-      <Drawer
+
+      <KanbanCardDetail
         isOpen={isOpen}
-        placement="right"
         onClose={onClose}
         finalFocusRef={cardRef}
-        size='lg'
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
-
-          <DrawerBody>
-            <Input placeholder="Type here..." />
-          </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+      />
     </>
   );
 };
