@@ -32,7 +32,7 @@ const BoardHeaderMenu = (props: Props) => {
       <IconButton
         ref={btnRef}
         onClick={onOpen}
-        aria-label="Дополнительная информация"
+        aria-label="Кнопка открытия меню доски"
         variant="solid"
         bg="white"
         icon={<MdMoreHoriz />}

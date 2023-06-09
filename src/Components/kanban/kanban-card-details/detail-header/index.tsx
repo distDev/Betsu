@@ -18,12 +18,14 @@ const CardDetailHeader = (props: Props) => {
         variant="ghost"
         icon={<MdOutlinePersonOutline />}
         color="textSecond"
+        fontSize='19px'
       />
       <IconButton
         aria-label="кнопка для добавления вложения"
         variant="ghost"
         icon={<MdAttachFile />}
         color="textSecond"
+        fontSize='19px'
       />
       <Spacer />
       <IconButton
@@ -31,36 +33,42 @@ const CardDetailHeader = (props: Props) => {
         variant="ghost"
         icon={<BsTag />}
         color="textSecond"
+        fontSize='19px'
       />
       <IconButton
         aria-label="кнопка открытия списка пользователей"
         variant="ghost"
         icon={<MdAccessTime />}
         color="textSecond"
+        fontSize='19px'
       />
       <IconButton
         aria-label="кнопка открытия списка пользователей"
         variant="ghost"
         icon={<MdOutlineCheckBox />}
         color="textSecond"
+        fontSize='19px'
       />
       <IconButton
         aria-label="кнопка открытия списка пользователей"
         variant="ghost"
         icon={<MdContentCopy />}
         color="textSecond"
+        fontSize='19px'
       />
       <IconButton
         aria-label="кнопка открытия списка пользователей"
         variant="ghost"
         icon={<MdEast />}
         color="textSecond"
+        fontSize='19px'
       />
       <IconButton
         aria-label="кнопка открытия списка пользователей"
         variant="ghost"
         icon={<MdOutlineDelete />}
         color="textSecond"
+        fontSize='19px'
       />
     </Stack>
   );

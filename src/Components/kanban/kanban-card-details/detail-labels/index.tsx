@@ -11,8 +11,8 @@ const CardDetailLabels = (props: Props) => {
         Метки
       </Text>
       <Stack direction="row" spacing="7px" h="35px">
-        <Box bg="#DCD1FA" h="full" w="50px" borderRadius="5px" />
-        <Box bg="#D1FADF" h="full" w="50px" borderRadius="5px" />
+        <Box bg="bgGreen" h="full" w="50px" borderRadius="5px" />
+        <Box bg="bgPurple" h="full" w="50px" borderRadius="5px" />
         <IconButton
           aria-label="кнопка открывающая окно добавления метки"
           icon={<MdAdd />}
