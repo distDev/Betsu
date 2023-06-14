@@ -5,7 +5,7 @@ export const theme = extendTheme({
     textSecond: "#A5A9B0",
     textMain: "#1D2939",
     bgGrey: "#F8F8FB",
-    bgGreen: "#91F8B4",
+    bgGreen: "#46F3A0",
     bgRed: "",
     bgPurple: "#B891F8",
     bgBlue: "",
@@ -16,4 +16,6 @@ export const theme = extendTheme({
     heading: "Roboto, serif",
     mono: "Roboto, monospace",
   },
+  
+ 
 });

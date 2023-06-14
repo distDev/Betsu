@@ -25,7 +25,7 @@ const Boards: FC<Props> = ({ title, data }) => {
       <Text fontSize="26px" fontWeight="medium">
         {title}
       </Text>
-      <Stack direction="row" overflowX="scroll" spacing="30px" mt="20px">
+      <Stack direction="row" overflowX="auto" spacing="30px" mt="20px">
         <BoardsItems data={data} />
       </Stack>
     </Box>

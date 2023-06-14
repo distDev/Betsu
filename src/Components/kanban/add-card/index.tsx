@@ -52,7 +52,7 @@ const AddCard: FC<Props> = ({ handleAddTask, sortedCards }) => {
         <Box
           onClick={() => setIsAdding((status) => !status)}
           w="100%"
-          h="155px"
+          h="60px"
           bg="white"
           borderRadius="8px"
           m="5px 0px"

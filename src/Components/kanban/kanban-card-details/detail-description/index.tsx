@@ -8,7 +8,7 @@ const CardDetailDescription = (props: Props) => {
 
   return (
     <Box>
-      <Text mb="15px" fontSize="16px" fontWeight="semibold">
+      <Text mb="15px" fontSize="16px" fontWeight="medium">
         Описание
       </Text>
 

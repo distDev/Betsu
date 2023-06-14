@@ -12,6 +12,11 @@ const CardDetailHeader = (props: Props) => {
       direction="row"
       p="5px 25px"
       borderBottom="1px solid #E6E6E6"
+      position='sticky'
+      top='0px'
+      bg='white'
+      w='full'
+      zIndex='100'
     >
       <IconButton
         aria-label="кнопка открытия списка пользователей"

@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Flex,
+  Icon,
   IconButton,
   Menu,
   MenuButton,
@@ -15,6 +16,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { navLinks } from "../../../Utils/nav-data";
 import "./navbar.css";
+import { RxExit } from "react-icons/rx";
 
 type Props = {};
 
@@ -30,7 +32,9 @@ const Navbar = (props: Props) => {
               h="24px"
               src="https://bit.ly/ryan-florence"
             />
-            <Text fontSize="sm">Дмитрий</Text>
+            <Text fontSize="16px" color="textMain" fontWeight="medium">
+              Дмитрий
+            </Text>
           </Stack>
           <Menu>
             <MenuButton
@@ -38,7 +42,9 @@ const Navbar = (props: Props) => {
               icon={<ChevronDownIcon />}
               aria-label="Профиль"
               variant="unstyled"
-            ></MenuButton>
+              fontSize="22px"
+              color="textSecond"
+            />
             <MenuList>
               <MenuItem>Download</MenuItem>
               <MenuItem>Create a Copy</MenuItem>
@@ -49,19 +55,29 @@ const Navbar = (props: Props) => {
           </Menu>
         </Flex>
         <Stack spacing="4px">
-          {navLinks.map(({ name, path }) => (
+          {navLinks.map(({ name, path, icon }) => (
             <NavLink
               to={path}
               key={path}
               className={({ isActive }) => (isActive ? "active-link" : "link")}
             >
-              {name}
+              <Box display="flex" gap="13px" alignItems="center">
+                <Icon as={icon} w="22px" h="22px" fontWeight="medium" />
+                {name}
+              </Box>
             </NavLink>
           ))}
         </Stack>
       </Stack>
       <Box>
-        <Button variant={"ghost"}>Выйти</Button>
+        <Button variant={"ghost"}>
+          <Box display="flex" gap="13px" alignItems="center">
+            <Icon as={RxExit} w="22px" h="22px" fontWeight="medium" />
+            <Text fontWeight="semibold" fontSize="16px" color="#667085">
+              Выйти
+            </Text>
+          </Box>
+        </Button>
       </Box>
     </Flex>
   );

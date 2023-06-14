@@ -5,6 +5,8 @@ import CardDetailTitle from "./detail-title";
 import CardDetailData from "./detail-data";
 import CardDetailDescription from "./detail-description";
 import CardDetailAttachments from "./detail-attachments";
+import CardDetailCheckList from "./detail-check-list";
+import CardDetailComments from "./detail-comments";
 
 type Props = {
   isOpen: boolean;
@@ -22,13 +24,15 @@ const KanbanCardDetail: FC<Props> = ({ isOpen, onClose, finalFocusRef }) => {
       size="lg"
     >
       <DrawerOverlay />
-      <DrawerContent>
+      <DrawerContent overflowY="auto" position="relative">
         <CardDetailHeader />
         <Stack spacing="60px" p="25px">
           <CardDetailTitle />
           <CardDetailData />
           <CardDetailDescription />
           <CardDetailAttachments />
+          <CardDetailCheckList />
+          <CardDetailComments />
         </Stack>
       </DrawerContent>
     </Drawer>
