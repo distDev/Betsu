@@ -1,6 +1,6 @@
 import { Box, IconButton, Image, Stack, Text } from "@chakra-ui/react";
 import { MdMoreVert } from "react-icons/md";
-import danceImage from '../../../../Assets/images/dance.jpg';
+import danceImage from '../../../Assets/images/dance.jpg';
 
 type Props = {};
 

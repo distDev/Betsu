@@ -4,7 +4,7 @@ import CardDetailHeader from "./detail-header";
 import CardDetailTitle from "./detail-title";
 import CardDetailData from "./detail-data";
 import CardDetailDescription from "./detail-description";
-import CardDetailAttachments from "./detail-attachments";
+import CardDetailAttachments from "./CardDetailAttachments";
 import CardDetailCheckList from "./detail-check-list";
 import CardDetailComments from "./detail-comments";
 

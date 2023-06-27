@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { FC, useRef } from "react";
 import { Draggable } from "react-beautiful-dnd";
-import KanbanCardDetail from "../kanban-card-details";
+import KanbanCardDetail from "./kanban-card-details";
 
 type Props = {
   description?: string;

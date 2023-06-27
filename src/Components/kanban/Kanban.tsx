@@ -3,7 +3,7 @@ import KanbanColumn from "./kanban-column";
 import { useState } from "react";
 import { cardsData, listsData } from "../../Utils/data";
 import { handleDragColumn, handleDragTask } from "../../Utils/kanban-logic";
-import AddColumn from "./add-column";
+import AddColumn from "./AddColumn";
 import { nanoid } from "nanoid";
 
 type Props = {};

@@ -1,10 +1,10 @@
 import { Box, Spacer, Stack, Text } from "@chakra-ui/react";
 import { nanoid } from "nanoid";
-import KanbanCard from "../kanban-card";
+import KanbanCard from "../KanbanCard";
 import { FC } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import AddCard from "../add-card";
-import KanbanColumnMenu from "./kanban-column-menu";
+import AddCard from "../AddCard";
+import KanbanColumnMenu from "./KanbanColumnMenu";
 
 type Props = {
   name: string;

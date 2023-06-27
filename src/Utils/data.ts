@@ -1,13 +1,13 @@
 export const boardsData = [
   {
     id: "1",
-    idBoard: '1',
+    idBoard: "1",
     name: "Fortuna",
     position: 16454,
   },
   {
     id: "2",
-    idBoard: '2',
+    idBoard: "2",
     name: "Excellent",
     position: 60000,
   },
@@ -30,7 +30,6 @@ export const listsData = [
       color: "#891BE8",
     },
   },
-  
 ];
 
 export const cardsData = [
@@ -86,3 +85,75 @@ export const cardsData = [
     idList: "2",
   },
 ];
+
+let cardFromTrello = {
+  id: "6471018bc6aadc6375391ea9",
+  badges: {
+    attachmentsByType: {
+      trello: {
+        board: 0,
+        card: 0,
+      },
+    },
+    location: false,
+    votes: 0,
+    viewingMemberVoted: false,
+    subscribed: true,
+    fogbugz: "",
+    checkItems: 0,
+    checkItemsChecked: 0,
+    checkItemsEarliestDue: null,
+    comments: 0,
+    attachments: 0,
+    description: true,
+    due: "2023-06-28T09:00:00.000Z",
+    dueComplete: false,
+    start: "2023-06-28T05:00:00.000Z",
+  },
+  checkItemStates: [],
+  closed: false,
+  dueComplete: false,
+  dateLastActivity: "2023-06-27T10:42:37.709Z",
+  desc: "‌\n\n---\n[Planyway Data - do not delete this link](https://planyway.com?cardData=eJxdkMFuwjAQRP/FZ6icEALJLSVUitRyCGkPrarIsdetRbCR7SAhxL93TcoBLJ/m7e5o5kyOYJ0ymuTkmJAJEcyzj1GqBMkjSidEuaLvS3YiubcDTIjzzHpciGk8m9J0Gi9xEbR4lPAWbE+aN6cDINs2Rd20xaZsy/d1wAO8Kr37p6i114l7cnO+8vWmRGqkdODLAe78GprllOJ/opR+4tjBKmOVx12MwAfnzb7EcCQ/E86sqE0fDqyKOtwc+YuCXqwQunHy6xvJL/Bd5WH/oGvjlVSceWzKoXQmKhSQJhnreBfLLKFyHrNO0vBCtX4MWq/fKuzgltXCXmnxDNJYpNN5Qi94vcf4bjTCED9Ksz74V6PFIqLRsuMpY4Kns8V8lkXAMnK5/AEf1Y0X)",
+  descData: {
+    emoji: {},
+  },
+  due: "2023-06-28T09:00:00.000Z",
+  dueReminder: null,
+  email: null,
+  idBoard: "63720e4d0437d303ebc6fe3d",
+  idChecklists: [],
+  idList: "63720e9f249498013ab4056c",
+  idMembers: ["61eb0532dcb7521a5b3bef19"],
+  idMembersVoted: [],
+  idShort: 137,
+  idAttachmentCover: null,
+  labels: [
+    {
+      id: "63720e4d8291ac8742b8654f",
+      idBoard: "63720e4d0437d303ebc6fe3d",
+      name: "",
+      color: "green",
+      uses: 124,
+    },
+  ],
+  idLabels: ["63720e4d8291ac8742b8654f"],
+  manualCoverAttachment: false,
+  name: "Добавить блокировку фокуса в корзине",
+  pos: 163839,
+  shortLink: "IitNvB03",
+  shortUrl: "https://trello.com/c/IitNvB03",
+  start: "2023-06-28T05:00:00.000Z",
+  subscribed: true,
+  url: "https://trello.com/c/IitNvB03/137-%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D1%82%D1%8C-%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D1%83-%D1%84%D0%BE%D0%BA%D1%83%D1%81%D0%B0-%D0%B2-%D0%BA%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B5",
+  cover: {
+    idAttachment: null,
+    color: null,
+    idUploadedBackground: null,
+    size: "normal",
+    brightness: "dark",
+    idPlugin: null,
+  },
+  isTemplate: false,
+  cardRole: null,
+};
