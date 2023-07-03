@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai";
-import { MdPublic, MdFilterList, MdPeople, MdMoreHoriz } from "react-icons/md";
+import { MdPublic } from "react-icons/md";
 import BoardHeaderMenu from "./board-menu/BoardHeaderMenu";
 import BoardHeaderUsers from "./board-users/BoardHeaderUsers";
 import BoardHeaderFilters from "./board-filter/BoardHeaderFilters";

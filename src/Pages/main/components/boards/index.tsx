@@ -1,9 +1,5 @@
 import {
   Box,
-  Card,
-  CardFooter,
-  CardHeader,
-  Spacer,
   Stack,
   Text,
 } from "@chakra-ui/react";

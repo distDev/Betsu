@@ -1,4 +1,4 @@
-import { Box, Stack } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import Boards from "./components/boards";
 import { boardsData } from "../../Utils/data";
 

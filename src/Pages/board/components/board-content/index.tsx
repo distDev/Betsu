@@ -1,4 +1,4 @@
-import Kanban from "../../../../Components/kanban/Kanban";
+import Kanban from "../kanban";
 
 type Props = {};
 

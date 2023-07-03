@@ -21,12 +21,10 @@ type Task = {
 };
 
 interface DragColumn {
-  lists: List[];
-  result: {
-    draggableId: string;
-  };
-  start: number;
-  end: number;
+  lists: any;
+  result: any;
+  start: any;
+  end: any;
 }
 
 interface DragTask {
@@ -44,8 +42,13 @@ interface DragTask {
   start: number;
 }
 
-export const handleDragColumn = ({ lists, result, start, end }: DragColumn) => {
-  const currentList = lists.find((e) => e.id === result.draggableId);
+export const handleDragColumn = (
+  lists: any,
+  result: any,
+  start: any,
+  end: any
+) => {
+  const currentList = lists.find((e: any) => e.id === result.draggableId);
   const changedLists = Array.from(lists);
   changedLists.splice(start, 1);
   changedLists.splice(end, 0, currentList!);
