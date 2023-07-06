@@ -5,51 +5,28 @@ import { FC } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import AddCard from "../add-card";
 import ColumnMenu from "./menu";
+import { useAppDispatch } from "../../../../../Hooks/useAppDispatch";
+import { addTask } from "../../../../../Store/taskSlice";
+import { useAppSelector } from "../../../../../Hooks/useAppSelector";
 
 type Props = {
   name: string;
   id: string;
   index: number;
-  tasks: {
-    id: string;
-    description: string;
-    name: string;
-    position: number;
-    cover: {
-      color: string;
-    };
-    checkLists: never[];
-    idBoard: string;
-    idList: string;
-  }[];
-  setTasks: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: string;
-        description: string;
-        name: string;
-        position: number;
-        cover: {
-          color: string;
-        };
-        checkLists: never[];
-        idBoard: string;
-        idList: string;
-      }[]
-    >
-  >;
 };
 
-const Column: FC<Props> = ({ name, id, tasks, index, setTasks }) => {
+const Column: FC<Props> = ({ name, id, index }) => {
+  const tasks = useAppSelector((state) => state.tasks.list);
   const filteredCards = tasks.filter((e) => e.idList === id);
   const sortedCards = [...filteredCards].sort(
     (a, b) => a.position - b.position
   );
 
+  const dispatch = useAppDispatch();
+
   const handleAddTask = (data: { name: string; position: number }) => {
-    setTasks([
-      ...tasks,
-      {
+    dispatch(
+      addTask({
         id: nanoid(),
         description: "",
         name: data.name,
@@ -60,8 +37,8 @@ const Column: FC<Props> = ({ name, id, tasks, index, setTasks }) => {
         checkLists: [],
         idBoard: "1",
         idList: id,
-      },
-    ]);
+      })
+    );
   };
 
   return (
