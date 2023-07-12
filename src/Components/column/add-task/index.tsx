@@ -6,8 +6,9 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import React, { FC, useState } from "react";
-import { MdMoreHoriz } from "react-icons/md";
+import { FC, useState } from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../../../firebase.config";
 
 type Props = {
   handleAddTask: (data: any) => void;
@@ -25,11 +26,11 @@ type Props = {
   }[];
 };
 
-const AddCard: FC<Props> = ({ handleAddTask, sortedCards }) => {
+const AddTaskForm: FC<Props> = ({ handleAddTask, sortedCards }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [taskName, setTaskName] = useState("");
 
-  const addTask = () => {
+  const addTask = async () => {
     // Если массив пустой, то ставлю дефолтную позицию
     // иначе беру последнюю карточку из массива и ее позицию
     const newPosition = () => {
@@ -38,8 +39,8 @@ const AddCard: FC<Props> = ({ handleAddTask, sortedCards }) => {
       }
       return sortedCards[sortedCards.length - 1].position + 60000;
     };
-
     handleAddTask({ name: taskName, position: newPosition() });
+
     setIsAdding((prev) => !prev);
     setTaskName("");
   };
@@ -89,4 +90,4 @@ const AddCard: FC<Props> = ({ handleAddTask, sortedCards }) => {
   );
 };
 
-export default AddCard;
+export default AddTaskForm;

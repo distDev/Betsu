@@ -1,13 +1,13 @@
 import { Box, Spacer, Stack, Text } from "@chakra-ui/react";
-import { nanoid } from "nanoid";
-import Card from "../../../../../Components/card";
+import Card from "../../Components/card";
 import { FC } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import AddCard from "../add-card";
 import ColumnMenu from "./menu";
-import { useAppDispatch } from "../../../../../Hooks/useAppDispatch";
-import { addTask } from "../../../../../Store/taskSlice";
-import { useAppSelector } from "../../../../../Hooks/useAppSelector";
+import { useAppDispatch } from "../../Hooks/useAppDispatch";
+import { addTask } from "../../Store/taskSlice";
+import { useAppSelector } from "../../Hooks/useAppSelector";
+import { useParams } from "react-router-dom";
+import AddTaskForm from "./add-task";
 
 type Props = {
   name: string;
@@ -17,25 +17,19 @@ type Props = {
 
 const Column: FC<Props> = ({ name, id, index }) => {
   const tasks = useAppSelector((state) => state.tasks.list);
-  const filteredCards = tasks.filter((e) => e.idList === id);
-  const sortedCards = [...filteredCards].sort(
-    (a, b) => a.position - b.position
-  );
+  const filteredCards = tasks
+    .filter((e) => e.idList === id)
+    .sort((a, b) => a.position - b.position);
 
   const dispatch = useAppDispatch();
+  const { id: boardId } = useParams();
 
   const handleAddTask = (data: { name: string; position: number }) => {
     dispatch(
       addTask({
-        id: nanoid(),
-        description: "",
         name: data.name,
         position: data.position,
-        cover: {
-          color: "",
-        },
-        checkLists: [],
-        idBoard: "1",
+        idBoard: boardId,
         idList: id,
       })
     );
@@ -66,7 +60,7 @@ const Column: FC<Props> = ({ name, id, index }) => {
               {(provided, snapshot) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   <Stack direction="column" spacing="0px">
-                    {sortedCards.map((card, i) => (
+                    {filteredCards.map((card, i) => (
                       <Card
                         key={card.id}
                         id={card.id}
@@ -77,9 +71,9 @@ const Column: FC<Props> = ({ name, id, index }) => {
                     ))}
                   </Stack>
                   {provided.placeholder}
-                  <AddCard
+                  <AddTaskForm
                     handleAddTask={handleAddTask}
-                    sortedCards={sortedCards}
+                    sortedCards={filteredCards}
                   />
                 </div>
               )}

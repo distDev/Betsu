@@ -1,6 +1,9 @@
 import {
+  Avatar,
+  AvatarGroup,
   Box,
   Flex,
+  Icon,
   Spacer,
   Stack,
   Text,
@@ -9,6 +12,8 @@ import {
 import { FC, useRef } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import CardDetails from "../card-details";
+import { MdAttachFile } from "react-icons/md";
+import { BiMessageSquareDots } from "react-icons/bi";
 
 type Props = {
   description?: string;
@@ -60,9 +65,34 @@ const KanbanCard: FC<Props> = ({ description, id, index, name }) => {
                 )}
               </Box>
               <Flex>
-                <Box></Box>
+                <AvatarGroup size="sm" max={2}>
+                  <Avatar
+                    name="Ryan Florence"
+                    src="https://bit.ly/ryan-florence"
+                  />
+                  <Avatar
+                    name="Segun Adebayo"
+                    src="https://bit.ly/sage-adebayo"
+                  />
+                  <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
+                  <Avatar
+                    name="Prosper Otemuyiwa"
+                    src="https://bit.ly/prosper-baba"
+                  />
+                  <Avatar
+                    name="Christian Nwamba"
+                    src="https://bit.ly/code-beast"
+                  />
+                </AvatarGroup>
                 <Spacer />
-                <Stack direction="row" spacing="20px"></Stack>
+                <Stack direction="row" spacing="20px" alignItems="end">
+                  <Text color="textSecond">
+                    24 <Icon as={MdAttachFile} fontSize="18px" />
+                  </Text>
+                  <Text color="textSecond">
+                    12 <Icon as={BiMessageSquareDots} fontSize="18px" />
+                  </Text>
+                </Stack>
               </Flex>
             </Box>
           </div>

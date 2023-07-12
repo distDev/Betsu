@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { handleDragColumn, handleDragTask } from "../Utils/kanban-logic";
 import { nanoid } from "nanoid";
+import { RootState } from "./store";
 
 interface taskState {
   list: any[];
@@ -89,5 +90,10 @@ export const {
   addColumn,
   addTask,
 } = taskSlice.actions;
+
+export const getColumnTasks = (idColumn: number | string, state: RootState) => {
+  let currentTasks = state.tasks.list.filter((task) => task.id === idColumn);
+  return [...currentTasks].sort((a, b) => a.position - b.position);
+};
 
 export default taskSlice.reducer;

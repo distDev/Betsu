@@ -1,7 +1,7 @@
-import { Box, Stack } from "@chakra-ui/react";
-import React from "react";
+import { Stack } from "@chakra-ui/react";
 import BoardHeader from "./components/board-header/BoardHeader";
 import BoardContent from "./components/board-content";
+import { useLocation, useParams } from "react-router-dom";
 
 type Props = {};
 

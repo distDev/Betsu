@@ -1,13 +1,8 @@
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Column from "./column";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { cardsData, listsData } from "../../../../Utils/data";
-import {
-  handleDragColumn,
-  handleDragTask,
-} from "../../../../Utils/kanban-logic";
 import AddColumn from "./add-column";
-import { nanoid } from "nanoid";
 import { useAppDispatch } from "../../../../Hooks/useAppDispatch";
 import { useAppSelector } from "../../../../Hooks/useAppSelector";
 import {
@@ -22,8 +17,6 @@ type Props = {};
 
 const Kanban = (props: Props) => {
   const dispatch = useAppDispatch();
-
-  const tasks = useAppSelector((state) => state.tasks.list);
   const columns = useAppSelector((state) => state.tasks.columns);
 
   useEffect(() => {
@@ -31,6 +24,7 @@ const Kanban = (props: Props) => {
     dispatch(setColumns({ columns: listsData }));
   }, []);
 
+  // обработка перестаскивания
   const handleOnDragEnd = (result: any) => {
     let { source, destination, type } = result;
     let end = destination?.index;
@@ -57,12 +51,7 @@ const Kanban = (props: Props) => {
             style={{ display: "flex", overflowX: "scroll", height: "85vh" }}
           >
             {columns.map((item: any, i: any) => (
-              <Column
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                index={i}
-              />
+              <Column key={item.id} id={item.id} name={item.name} index={i} />
             ))}
             {provided.placeholder}
             <AddColumn handleAddColumn={handleAddColumn} />

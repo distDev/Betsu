@@ -7,7 +7,6 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import React from "react";
 import { MdMoreHoriz } from "react-icons/md";
 
 type Props = {};
