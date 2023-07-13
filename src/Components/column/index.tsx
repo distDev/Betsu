@@ -19,17 +19,19 @@ const Column: FC<Props> = ({ name, id, index }) => {
   const tasks = useAppSelector((state) => state.tasks.list);
   const filteredCards = tasks
     .filter((e) => e.idList === id)
-    .sort((a, b) => a.position - b.position);
+    .sort((a, b) => a.position! - b.position!);
+
+  console.log(filteredCards);
 
   const dispatch = useAppDispatch();
-  const { id: boardId } = useParams();
+  const { id: idBoard } = useParams();
 
   const handleAddTask = (data: { name: string; position: number }) => {
     dispatch(
       addTask({
         name: data.name,
         position: data.position,
-        idBoard: boardId,
+        idBoard: idBoard,
         idList: id,
       })
     );
@@ -65,7 +67,17 @@ const Column: FC<Props> = ({ name, id, index }) => {
                         key={card.id}
                         id={card.id}
                         name={card.name}
-                        description={card.description}
+                        desc={card.desc}
+                        checkItemsCheckedCount={card.checkItemsCheckedCount}
+                        checkItemsCount={card.checkItemsCount}
+                        closed={card.closed}
+                        commentsCount={card.commentsCount}
+                        due={card.due}
+                        dueComplete={card.dueComplete}
+                        fileCount={card.fileCount}
+                        idMembers={card.idMembers}
+                        labels={card.labels}
+                        start={card.start}
                         index={i}
                       />
                     ))}

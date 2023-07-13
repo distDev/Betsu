@@ -14,15 +14,30 @@ import { Draggable } from "react-beautiful-dnd";
 import CardDetails from "../card-details";
 import { MdAttachFile } from "react-icons/md";
 import { BiMessageSquareDots } from "react-icons/bi";
+import { ITask } from "../../Types/board";
 
 type Props = {
-  description?: string;
-  id: string;
   index: number;
-  name: string;
 };
 
-const KanbanCard: FC<Props> = ({ description, id, index, name }) => {
+const KanbanCard: FC<Props & ITask> = ({
+  id,
+  index,
+  name,
+  checkItemsCheckedCount,
+  checkItemsCount,
+  closed,
+  commentsCount,
+  desc,
+  due,
+  dueComplete,
+  fileCount,
+  idMembers,
+  labels,
+  position,
+  start,
+  subscribed,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cardRef = useRef(null);
 
@@ -37,30 +52,38 @@ const KanbanCard: FC<Props> = ({ description, id, index, name }) => {
           >
             <Box
               bg="white"
-              p="20px"
+              p="15px"
               m="5px 0px"
               borderRadius="8px"
               ref={cardRef}
               onClick={onOpen}
               cursor="pointer"
             >
-              <Stack direction="row" spacing="8px" mb="10px">
-                <Box bg="#F8BD1C" w="60px" h="8px" borderRadius="4px" />
-                <Box bg="#891BE8" w="60px" h="8px" borderRadius="4px" />
-              </Stack>
+              {labels.length > 0 && (
+                <Box display="flex" flexDirection="row" gap="10px" mb="10px">
+                  {labels.map((label) => (
+                    <Box
+                      bg={label.color}
+                      key={label.id}
+                      w="60px"
+                      h="8px"
+                      borderRadius="4px"
+                    />
+                  ))}
+                </Box>
+              )}
               <Box mb="25px">
                 <Text fontSize="16px" fontWeight="normal">
                   {name}
                 </Text>
-                {description && (
+                {desc && (
                   <Text
                     fontSize="13px"
                     fontWeight="normal"
                     color="textSecond"
                     mt="7px"
                   >
-                    Нужно сделать деплой сайта на vps и понять как работает
-                    nginx
+                    {desc}
                   </Text>
                 )}
               </Box>
@@ -70,28 +93,21 @@ const KanbanCard: FC<Props> = ({ description, id, index, name }) => {
                     name="Ryan Florence"
                     src="https://bit.ly/ryan-florence"
                   />
-                  <Avatar
-                    name="Segun Adebayo"
-                    src="https://bit.ly/sage-adebayo"
-                  />
-                  <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
-                  <Avatar
-                    name="Prosper Otemuyiwa"
-                    src="https://bit.ly/prosper-baba"
-                  />
-                  <Avatar
-                    name="Christian Nwamba"
-                    src="https://bit.ly/code-beast"
-                  />
                 </AvatarGroup>
                 <Spacer />
                 <Stack direction="row" spacing="20px" alignItems="end">
-                  <Text color="textSecond">
-                    24 <Icon as={MdAttachFile} fontSize="18px" />
-                  </Text>
-                  <Text color="textSecond">
-                    12 <Icon as={BiMessageSquareDots} fontSize="18px" />
-                  </Text>
+                  {fileCount && (
+                    <Text color="textSecond">
+                      24 <Icon as={MdAttachFile} fontSize="18px" />
+                    </Text>
+                  )}
+
+                  {commentsCount && (
+                    <Text color="textSecond">
+                      {commentsCount}
+                      <Icon as={BiMessageSquareDots} fontSize="18px" />
+                    </Text>
+                  )}
                 </Stack>
               </Flex>
             </Box>

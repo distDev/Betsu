@@ -1,27 +1,30 @@
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import Column from "./column";
+import Column from "../column";
 import { useEffect } from "react";
-import { cardsData, listsData } from "../../../../Utils/data";
-import AddColumn from "./add-column";
-import { useAppDispatch } from "../../../../Hooks/useAppDispatch";
-import { useAppSelector } from "../../../../Hooks/useAppSelector";
+import { cardsFromTrello, listsFromTrello } from "../../Utils/data";
+import AddColumn from "../add-column";
+import { useAppDispatch } from "../../Hooks/useAppDispatch";
+import { useAppSelector } from "../../Hooks/useAppSelector";
 import {
   addColumn,
   dragColumn,
   dragTask,
   getTasks,
   setColumns,
-} from "../../../../Store/taskSlice";
+} from "../../Store/taskSlice";
+import { useParams } from "react-router-dom";
 
 type Props = {};
 
-const Kanban = (props: Props) => {
+const Kanban = () => {
+  const { id: idBoard } = useParams();
   const dispatch = useAppDispatch();
   const columns = useAppSelector((state) => state.tasks.columns);
+  const filteredList = columns.filter((col) => col.idBoard === idBoard);
 
   useEffect(() => {
-    dispatch(getTasks({ list: cardsData }));
-    dispatch(setColumns({ columns: listsData }));
+    dispatch(getTasks({ list: cardsFromTrello }));
+    dispatch(setColumns({ columns: listsFromTrello }));
   }, []);
 
   // обработка перестаскивания
@@ -38,7 +41,7 @@ const Kanban = (props: Props) => {
   };
 
   const handleAddColumn = (name: string) => {
-    dispatch(addColumn({ name }));
+    dispatch(addColumn({ name, idBoard }));
   };
 
   return (
@@ -50,7 +53,7 @@ const Kanban = (props: Props) => {
             {...provided.droppableProps}
             style={{ display: "flex", overflowX: "scroll", height: "85vh" }}
           >
-            {columns.map((item: any, i: any) => (
+            {filteredList.map((item, i) => (
               <Column key={item.id} id={item.id} name={item.name} index={i} />
             ))}
             {provided.placeholder}

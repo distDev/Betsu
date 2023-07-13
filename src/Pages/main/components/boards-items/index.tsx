@@ -3,16 +3,18 @@ import BoardsItem from "../boards-item";
 
 type Props = {
   data: {
-    id: string;
+    idBoard: string;
     name: string;
+    cover: string;
   }[];
+ 
 };
 
 const BoardsItems: FC<Props> = ({ data }) => {
   return (
     <>
-      {data.map(({ id, name }) => (
-        <BoardsItem id={id} name={name} />
+      {data.map(({ idBoard, name, cover }) => (
+        <BoardsItem idBoard={idBoard} name={name} cover={cover} key={idBoard} />
       ))}
     </>
   );

@@ -1,15 +1,29 @@
 export const boardsData = [
   {
-    id: "1",
-    idBoard: "1",
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    idUser: "1",
     name: "Fortuna",
-    position: 16454,
+    cover:
+      "https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGUlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+    dateLastView: "2023-07-12T18:26:37.287Z",
+    memberships: [
+      {
+        idMember: "61eb0532dcb7521a5b3bef19",
+      },
+    ],
   },
   {
-    id: "2",
-    idBoard: "2",
-    name: "Excellent",
-    position: 60000,
+    idBoard: "63720efw4d0437d303ebc6fe3d",
+    idUser: "1",
+    name: "Betsu",
+    cover:
+      "https://img3.akspic.ru/previews/0/1/6/8/6/168610/168610-macos_13_official_stock_wallpaper_dark-550x310.jpg",
+    dateLastView: "2023-07-12T18:26:37.287Z",
+    memberships: [
+      {
+        idMember: "61eb0532dcb7521a5b3bef19",
+      },
+    ],
   },
 ];
 
@@ -86,116 +100,190 @@ export const cardsData = [
   },
 ];
 
-let cardFromTrello = {
-  id: "645bf38f2ea5eb282a2e5d8b",
-  badges: {
-    subscribed: false,
-    checkItems: 3,
-    checkItemsChecked: 1,
-    checkItemsEarliestDue: null,
-    comments: 2,
-    attachments: 2,
-    description: false,
+export let cardsFromTrello = [
+  {
+    id: "fwq6fqwf45bf38f2ea5eb282a2e5d8b",
+    closed: false,
+    desc: "",
     due: "2023-09-09T15:26:00.000Z",
     dueComplete: false,
+    dueReminder: null,
+    idList: "63720e9f249498013ab4056c",
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    idMembers: [],
+    name: "На странице товара добавить описание доставки",
+    position: 16454,
+    subscribed: false,
     start: "2023-06-09T15:26:00.000Z",
+    commentsCount: 0,
+    fileCount: 1,
+    checkItemsCount: 3,
+    checkItemsCheckedCount: 1,
+    labels: [
+      {
+        id: "63720e4d8291ac8742b8654f",
+        idBoard: "63720e4d0437d303ebc6fe3d",
+        name: "green",
+        color: "#46F3A0",
+      },
+      {
+        id: "63720e4d8291ac8742b86555",
+        idBoard: "63720e4d0437d303ebc6fe3d",
+        name: "purple",
+        color: "#B891F8",
+      },
+    ],
   },
-  cardRole: null,
-  closed: false,
-  dateLastActivity: "2023-07-12T18:26:18.897Z",
-  desc: "",
-  due: "2023-09-09T15:26:00.000Z",
-  dueComplete: false,
-  dueReminder: -1,
-  idAttachmentCover: "6478b96ba9989852cc98f332",
-  idList: "63720eac6316060400259a91",
-  idBoard: "63720e4d0437d303ebc6fe3d",
-  idMembers: [],
-  idShort: 134,
-  name: "На странице товара добавить описание доставки",
-  pos: 1728,
-  subscribed: false,
-  start:  "2023-06-09T15:26:00.000Z",
-  labels: [
-    {
-      id: "63720e4d8291ac8742b8654f",
-      idBoard: "63720e4d0437d303ebc6fe3d",
-      name: "",
-      color: "green",
-      uses: 124,
-    },
-    {
-      id: "63720e4d8291ac8742b86555",
-      idBoard: "63720e4d0437d303ebc6fe3d",
-      name: "",
-      color: "orange",
-      uses: 1,
-    },
-    {
-      id: "63720e4d8291ac8742b8655c",
-      idBoard: "63720e4d0437d303ebc6fe3d",
-      name: "",
-      color: "green_light",
-      uses: 9,
-    },
-  ],
-  attachments: [
-    {
-      bytes: 432351,
-      date: "2023-06-01T15:29:47.075Z",
-      edgeColor: "#3c3c3c",
-      fileName: "main-banner.jpg",
-      idMember: "61eb0532dcb7521a5b3bef19",
-      isUpload: true,
-      mimeType: "image/jpeg",
-      name: "main-banner.jpg",
-      pos: 16384,
-      url: "https://trello.com/1/cards/645bf38f2ea5eb282a2e5d8b/attachments/6478b96ba9989852cc98f332/download/main-banner.jpg",
-      id: "6478b96ba9989852cc98f332",
-    },
-  ],
-  checklists: [
-    {
-      id: "6478b99734fdddd4a043512b",
-      idBoard: "63720e4d0437d303ebc6fe3d",
-      idCard: "645bf38f2ea5eb282a2e5d8b",
-      name: "Чек-лист",
-      pos: 16384,
-    },
-    {
-      id: "6478f564db0e4b62953a54cd",
-      idBoard: "63720e4d0437d303ebc6fe3d",
-      idCard: "645bf38f2ea5eb282a2e5d8b",
-      name: "Чек-лист",
-      pos: 32768,
-    },
-  ],
-};
 
-let columnFromTrello = {
-  id: "63720e9f249498013ab4056c",
-  name: "Нужно сделать",
-  closed: false,
-  idBoard: "63720e4d0437d303ebc6fe3d",
-  pos: 114687,
-  status: null,
-  subscribed: false,
-};
+  {
+    id: "fqwfq645bf38f2ea5eb282a2e5d8b",
+    closed: false,
+    desc: "",
+    due: "2023-09-09T15:26:00.000Z",
+    dueComplete: false,
+    dueReminder: null,
+    idList: "63720e9f249498013ab4056c",
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    idMembers: [],
+    name: "Тест 3",
+    position: 32908,
+    subscribed: false,
+    start: "2023-06-09T15:26:00.000Z",
+    commentsCount: 2,
+    fileCount: 1,
+    checkItemsCount: null,
+    checkItemsCheckedCount: null,
+    labels: [
+      {
+        id: "63720e4d8291ac8742b8654f",
+        idBoard: "63720e4d0437d303ebc6fe3d",
+        name: "green",
+        color: "#46F3A0",
+      },
+      {
+        id: "63720e4d8291ac8742b86555",
+        idBoard: "63720e4d0437d303ebc6fe3d",
+        name: "purple",
+        color: "#B891F8",
+      },
+    ],
+  },
+
+  {
+    id: "4124645b3rfwf38f2ea5eb282a2e5d8b",
+    closed: false,
+    desc: "",
+    due: null,
+    dueComplete: false,
+    dueReminder: null,
+    idList: "r3720e9f249498013ab4056c",
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    idMembers: [],
+    name: "Тест 2",
+    position: 32908,
+    subscribed: false,
+    start: null,
+    commentsCount: null,
+    fileCount: null,
+    checkItemsCount: null,
+    checkItemsCheckedCount: null,
+    labels: [],
+  },
+  
+  {
+    id: "4124645br33rfwf38f2ea5eb282a2e5d8b",
+    closed: false,
+    desc: "",
+    due: null,
+    dueComplete: false,
+    dueReminder: null,
+    idList: "r3720e9f249498013ab4056c",
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    idMembers: [],
+    name: "Тест 1",
+    position: 16454,
+    subscribed: false,
+    start: null,
+    commentsCount: null,
+    fileCount: null,
+    checkItemsCount: null,
+    checkItemsCheckedCount: null,
+    labels: [],
+  },
+];
+
+let checklist = [
+  {
+    id: "645bf38f2ea5eb282a2e5d8bwar2",
+    idCard: "645bf38f2ea5eb282a2e5d8b",
+    checkListItems: [
+      {
+        id: "647c5d19983cdb8ed6429b3b",
+        name: "ац",
+        state: "incomplete",
+        due: null,
+        dueReminder: null,
+        idMember: null,
+        idChecklist: "6478f564db0e4b62953a54cd",
+      },
+      {
+        id: "64afcec05a6046d0d9636e98",
+        name: "проверка чеклиста",
+        state: "incomplete",
+        due: null,
+        dueReminder: null,
+        idMember: null,
+        idChecklist: "6478f564db0e4b62953a54cd",
+      },
+    ],
+  },
+];
+
+let attachements = [
+  {
+    bytes: 432351,
+    date: "2023-06-01T15:29:47.075Z",
+    edgeColor: "#3c3c3c",
+    fileName: "main-banner.jpg",
+    idMember: "61eb0532dcb7521a5b3bef19",
+    isUpload: true,
+    mimeType: "image/jpeg",
+    name: "main-banner.jpg",
+    pos: 16384,
+    url: "https://trello.com/1/cards/645bf38f2ea5eb282a2e5d8b/attachments/6478b96ba9989852cc98f332/download/main-banner.jpg",
+    id: "6478b96ba9989852cc98f332",
+  },
+];
+
+export let listsFromTrello = [
+  {
+    id: "63720e9f249498013ab4056c",
+    name: "Нужно сделать",
+    closed: false,
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    subscribed: false,
+  },
+  {
+    id: "r3720e9f249498013ab4056c",
+    name: "В работе",
+    closed: false,
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    subscribed: false,
+  },
+];
 
 let board = [
   {
-    id: "63720e4d0437d303ebc6fe3d",
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    idUser: "1",
     name: "Fortuna",
-    closed: false,
-    dateLastActivity: "2023-07-12T18:26:18.897Z",
+    cover:
+      "https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGUlMjB3YWxscGFwZXJ8ZW58MHx8MHx8fDA%3D&w=1000&q=80",
+
     dateLastView: "2023-07-12T18:26:37.287Z",
     memberships: [
       {
         idMember: "61eb0532dcb7521a5b3bef19",
-        memberType: "admin",
-        unconfirmed: false,
-        deactivated: false,
-        id: "63720e4d0437d303ebc6fe45",
       },
     ],
   },
@@ -220,5 +308,20 @@ let members = [
       avatarHash: null,
     },
     username: "user11423295",
+  },
+];
+
+let labels = [
+  {
+    id: "63720e4d8291ac8742b8654f",
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    name: "зеленый",
+    color: "#46F3A0",
+  },
+  {
+    id: "63720e4d8291ac8742b86555",
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    name: "фиолетовый",
+    color: "#B891F8",
   },
 ];

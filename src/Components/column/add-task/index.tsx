@@ -9,21 +9,11 @@ import {
 import { FC, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../../firebase.config";
+import { ITask } from "../../../Types/board";
 
 type Props = {
   handleAddTask: (data: any) => void;
-  sortedCards: {
-    id: string;
-    description: string;
-    name: string;
-    position: number;
-    cover: {
-      color: string;
-    };
-    checkLists: never[];
-    idBoard: string;
-    idList: string;
-  }[];
+  sortedCards: ITask[];
 };
 
 const AddTaskForm: FC<Props> = ({ handleAddTask, sortedCards }) => {
@@ -37,7 +27,7 @@ const AddTaskForm: FC<Props> = ({ handleAddTask, sortedCards }) => {
       if (sortedCards.length === 0) {
         return 60000;
       }
-      return sortedCards[sortedCards.length - 1].position + 60000;
+      return sortedCards[sortedCards.length - 1].position! + 60000;
     };
     handleAddTask({ name: taskName, position: newPosition() });
 
@@ -48,7 +38,7 @@ const AddTaskForm: FC<Props> = ({ handleAddTask, sortedCards }) => {
   return (
     <>
       {!isAdding && (
-        <Box
+        <Button
           onClick={() => setIsAdding((status) => !status)}
           w="100%"
           h="60px"
@@ -59,11 +49,12 @@ const AddTaskForm: FC<Props> = ({ handleAddTask, sortedCards }) => {
           justifyContent="center"
           alignItems="center"
           border="1px dashed #CCCCCC"
-          cursor="pointer"
+          fontWeight="normal"
+          color="textSecond"
           _hover={{ opacity: "0.7" }}
         >
           <Text>Добавить задачу</Text>
-        </Box>
+        </Button>
       )}
       {isAdding && (
         <Box w="100%" bg="white" borderRadius="8px" m="5px 0px" p="10px">

@@ -10,7 +10,7 @@ const Main = (props: Props) => {
   return (
     <Stack spacing='50px'>
       <Boards title="Недавние" data={boardsData} />
-      <Boards title="Все доски" data={boardsData} />
+      <Boards title="Все доски" data={boardsData} allBoards/>
     </Stack>
   );
 };

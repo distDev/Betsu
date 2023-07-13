@@ -3,6 +3,7 @@ import {
   Card,
   CardFooter,
   CardHeader,
+  IconButton,
   Image,
   Spacer,
   Text,
@@ -12,20 +13,39 @@ import { AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 type Props = {
-  id: string;
+  idBoard: string;
   name: string;
+  cover: string;
 };
 
-const BoardsItem = ({ id, name }: Props) => {
+const BoardsItem = ({ idBoard, name, cover }: Props) => {
+  const handleAddToFavorites = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+  };
+
   return (
-    <Link to={"/board/" + id}>
-      <Card w="360px" h="175px" key={id} position="relative" overflow="hidden">
+    <Link to={"/board/" + idBoard}>
+      <Card w="auto" h="175px" position="relative" overflow="hidden">
         <CardHeader zIndex="5">
-          <Text color="white">{name}</Text>
+          <Text color="white" fontSize="18px" fontWeight="medium">
+            {name}
+          </Text>
         </CardHeader>
         <Spacer />
         <CardFooter justify="end" zIndex="5">
-          <AiFillHeart />
+          <IconButton
+            icon={<AiFillHeart />}
+            aria-label="Добавить в избранное"
+            fontSize="20px"
+            size="sm"
+            variant="ghost"
+            color="textSecond"
+            border="none"
+            _hover={{ bg: "none", color: "red" }}
+            onClick={handleAddToFavorites}
+          />
         </CardFooter>
         <Image
           zIndex="0"
@@ -34,7 +54,7 @@ const BoardsItem = ({ id, name }: Props) => {
           h="100%"
           top="0px"
           left="0px"
-          src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWFjJTIwb3MlMjB3YWxscGFwZXJ8ZW58MHx8MHx8&w=1000&q=80"
+          src={cover}
         />
         <Box
           zIndex="3"

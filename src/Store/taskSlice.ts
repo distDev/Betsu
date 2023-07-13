@@ -2,10 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { handleDragColumn, handleDragTask } from "../Utils/kanban-logic";
 import { nanoid } from "nanoid";
 import { RootState } from "./store";
+import { IList, ITask } from "../Types/board";
 
 interface taskState {
-  list: any[];
-  columns: any[];
+  list: ITask[];
+  columns: IList[];
 }
 
 const initialState: taskState = {
@@ -28,15 +29,23 @@ export const taskSlice = createSlice({
     addTask: (state, { payload }) => {
       state.list.push({
         id: nanoid(),
-        description: "",
+        closed: false,
+        desc: "",
+        due: null,
+        dueComplete: false,
+        dueReminder: null,
+        idList: payload.idList,
+        idBoard: payload.idBoard,
+        idMembers: [],
         name: payload.name,
         position: payload.position,
-        cover: {
-          color: "",
-        },
-        checkLists: [],
-        idBoard: "1",
-        idList: payload.idList,
+        subscribed: false,
+        start: null,
+        commentsCount: null,
+        fileCount: null,
+        checkItemsCount: null,
+        checkItemsCheckedCount: null,
+        labels: [],
       });
     },
 
@@ -58,11 +67,8 @@ export const taskSlice = createSlice({
     addColumn: (state, { payload }) => {
       state.columns.push({
         id: nanoid(),
-        cover: {
-          color: "#F8BD1C",
-        },
         name: payload.name,
-        idBoard: "1",
+        idBoard: payload.idBoard,
       });
     },
 
@@ -91,9 +97,5 @@ export const {
   addTask,
 } = taskSlice.actions;
 
-export const getColumnTasks = (idColumn: number | string, state: RootState) => {
-  let currentTasks = state.tasks.list.filter((task) => task.id === idColumn);
-  return [...currentTasks].sort((a, b) => a.position - b.position);
-};
 
 export default taskSlice.reducer;

@@ -1,3 +1,5 @@
+import { IList, ITask } from "../Types/board";
+
 type List = {
   id: string;
   name: string;
@@ -20,30 +22,8 @@ type Task = {
   idList: string;
 };
 
-// interface DragColumn {
-//   lists: any;
-//   result: any;
-//   start: any;
-//   end: any;
-// }
-
-// interface DragTask {
-//   tasks: Task[];
-//   destination: {
-//     droppableId: string;
-//   };
-//   source: {
-//     droppableId: string;
-//   };
-//   result: {
-//     draggableId: string;
-//   };
-//   end: number;
-//   start: number;
-// }
-
 export const handleDragColumn = (
-  lists: any,
+  lists: IList[],
   result: any,
   start: any,
   end: any
@@ -57,7 +37,7 @@ export const handleDragColumn = (
 };
 
 export const handleDragTask = (
-  tasks: any[],
+  tasks: ITask[],
   destination: any,
   result: any,
   source: any,
@@ -69,11 +49,11 @@ export const handleDragTask = (
   }
   // Фильтрация, сортировка, копирование массива и поиск нужной карточки
   let tasksFiltered = tasks.filter(
-    (e: any) => e.idList === destination.droppableId
+    (e) => e.idList === destination.droppableId
   );
-  let taksSorted = [...tasksFiltered].sort((a, b) => a.position - b.position);
+  let taksSorted = [...tasksFiltered].sort((a, b) => a.position! - b.position!);
   let newArr = Array.from(taksSorted);
-  let currentTask = tasks.find((e: any) => e.id === result.draggableId);
+  let currentTask = tasks.find((e) => e.id === result.draggableId);
 
   // Если карточка переносится в тот же список, то она вырезается
   // И вставляется в нужное место, если список другой - просто вставляется
@@ -91,16 +71,16 @@ export const handleDragTask = (
 
   // Формула Trello для определения позиции карточки
   if (prevTask && nextTask) {
-    position = (prevTask.position + nextTask.position) / 2;
+    position = (prevTask.position! + nextTask.position!) / 2;
   } else if (prevTask) {
-    position = prevTask.position + prevTask.position / 2;
+    position = prevTask.position! + prevTask.position! / 2;
   } else if (nextTask) {
-    position = nextTask.position / 2;
+    position = nextTask.position! / 2;
   }
 
   // Изменение позиции нужной таски в массиве и ее idList
   // если карточка была перенесена в другой список
-  const changedPosition = tasks.map((e: any) =>
+  const changedPosition = tasks.map((e) =>
     e.id === currentTask!.id
       ? {
           ...e,
