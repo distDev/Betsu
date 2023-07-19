@@ -189,7 +189,7 @@ export let cardsFromTrello = [
     checkItemsCheckedCount: null,
     labels: [],
   },
-  
+
   {
     id: "4124645br33rfwf38f2ea5eb282a2e5d8b",
     closed: false,
@@ -212,32 +212,30 @@ export let cardsFromTrello = [
   },
 ];
 
-let checklist = [
-  {
-    id: "645bf38f2ea5eb282a2e5d8bwar2",
-    idCard: "645bf38f2ea5eb282a2e5d8b",
-    checkListItems: [
-      {
-        id: "647c5d19983cdb8ed6429b3b",
-        name: "ац",
-        state: "incomplete",
-        due: null,
-        dueReminder: null,
-        idMember: null,
-        idChecklist: "6478f564db0e4b62953a54cd",
-      },
-      {
-        id: "64afcec05a6046d0d9636e98",
-        name: "проверка чеклиста",
-        state: "incomplete",
-        due: null,
-        dueReminder: null,
-        idMember: null,
-        idChecklist: "6478f564db0e4b62953a54cd",
-      },
-    ],
-  },
-];
+let checklist = {
+  id: "645bf38f2ea5eb282a2e5d8bwar2",
+  idCard: "645bf38f2ea5eb282a2e5d8b",
+  checkListItems: [
+    {
+      id: "647c5d19983cdb8ed6429b3b",
+      name: "ац",
+      state: "incomplete",
+      due: null,
+      dueReminder: null,
+      idMember: null,
+      idChecklist: "6478f564db0e4b62953a54cd",
+    },
+    {
+      id: "64afcec05a6046d0d9636e98",
+      name: "проверка чеклиста",
+      state: "incomplete",
+      due: null,
+      dueReminder: null,
+      idMember: null,
+      idChecklist: "6478f564db0e4b62953a54cd",
+    },
+  ],
+};
 
 let attachements = [
   {

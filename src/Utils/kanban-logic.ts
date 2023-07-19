@@ -43,33 +43,31 @@ export const handleDragTask = (
   source: any,
   end: any,
   start: any
-) => {
+): { changedPosition: ITask[]; position: number } | null => {
   if (!destination) {
-    return tasks;
+    return null;
   }
-  // Фильтрация, сортировка, копирование массива и поиск нужной карточки
-  let tasksFiltered = tasks.filter(
-    (e) => e.idList === destination.droppableId
-  );
-  let taksSorted = [...tasksFiltered].sort((a, b) => a.position! - b.position!);
-  let newArr = Array.from(taksSorted);
-  let currentTask = tasks.find((e) => e.id === result.draggableId);
 
-  // Если карточка переносится в тот же список, то она вырезается
-  // И вставляется в нужное место, если список другой - просто вставляется
+  const { draggableId } = result;
+
+  const filteredTasks = tasks
+    .filter((task) => task.idList === destination.droppableId)
+    .sort((a, b) => a.position! - b.position!);
+
+  const updatedTasks = [...filteredTasks];
+
+  const currentTask = tasks.find((task) => task.id === draggableId);
+
   if (destination.droppableId === source.droppableId) {
-    newArr.splice(start, 1);
-    newArr.splice(end, 0, currentTask!);
-  } else {
-    newArr.splice(end, 0, currentTask!);
+    updatedTasks.splice(start, 1);
   }
 
-  // Поиск карточек, которые расположены рядом
-  let prevTask = newArr[end - 1];
-  let nextTask = newArr[end + 1];
-  let position = currentTask!.position;
+  updatedTasks.splice(end, 0, currentTask!);
 
-  // Формула Trello для определения позиции карточки
+  let prevTask = updatedTasks[end - 1];
+  let nextTask = updatedTasks[end + 1];
+  let position = currentTask!.position!;
+
   if (prevTask && nextTask) {
     position = (prevTask.position! + nextTask.position!) / 2;
   } else if (prevTask) {
@@ -78,16 +76,15 @@ export const handleDragTask = (
     position = nextTask.position! / 2;
   }
 
-  // Изменение позиции нужной таски в массиве и ее idList
-  // если карточка была перенесена в другой список
-  const changedPosition = tasks.map((e) =>
-    e.id === currentTask!.id
+  const changedPosition = tasks.map((task) =>
+    task.id === currentTask!.id
       ? {
-          ...e,
+          ...task,
           position: position,
           idList: destination.droppableId,
         }
-      : e
+      : task
   );
-  return changedPosition;
+
+  return { changedPosition, position };
 };

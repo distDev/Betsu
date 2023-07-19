@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  IconButton,
   Input,
   Popover,
   PopoverArrow,
@@ -11,16 +10,14 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
-import { FC, ReactNode, useEffect } from "react";
-import { MdAttachFile } from "react-icons/md";
+import { FC, ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
 };
 
-const CardDetailsHeaderAttachments: FC<Props> = ({ children }) => {
+const AttachmentsPopover: FC<Props> = ({ children }) => {
   return (
     <Popover isLazy>
       <PopoverTrigger>{children}</PopoverTrigger>
@@ -30,10 +27,7 @@ const CardDetailsHeaderAttachments: FC<Props> = ({ children }) => {
 };
 
 const PopoverContainer: FC = () => {
-  useEffect(() => {
-    console.log("открылся");
-  }, []);
-
+  
   return (
     <>
       <PopoverContent>
@@ -61,4 +55,4 @@ const PopoverContainer: FC = () => {
   );
 };
 
-export default CardDetailsHeaderAttachments;
+export default AttachmentsPopover;

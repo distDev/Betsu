@@ -49,7 +49,9 @@ export const taskSlice = createSlice({
       });
     },
 
-    deleteTask: (state, { payload }) => {},
+    deleteTask: (state, { payload }) => {
+      state.list = state.list.filter((item) => item.id !== payload.id);
+    },
 
     dragTask: (state, { payload }) => {
       const changedTasks = handleDragTask(
@@ -61,7 +63,13 @@ export const taskSlice = createSlice({
         payload.start
       );
 
-      state.list = changedTasks;
+      if (changedTasks === null) {
+        return;
+      }
+
+      const { changedPosition, position } = changedTasks;
+
+      state.list = changedPosition;
     },
 
     addColumn: (state, { payload }) => {
@@ -96,6 +104,5 @@ export const {
   addColumn,
   addTask,
 } = taskSlice.actions;
-
 
 export default taskSlice.reducer;
