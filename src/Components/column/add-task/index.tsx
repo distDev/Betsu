@@ -7,30 +7,41 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { FC, useState } from "react";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../../firebase.config";
 import { ITask } from "../../../Types/board";
+import { useAppDispatch } from "../../../Hooks/useAppDispatch";
+import { createNewTask } from "../../../Store/task-slice";
+import { useParams } from "react-router-dom";
 
 type Props = {
-  handleAddTask: (data: any) => void;
   sortedCards: ITask[];
 };
 
-const AddTaskForm: FC<Props> = ({ handleAddTask, sortedCards }) => {
+const AddTaskForm: FC<Props> = ({ sortedCards }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [taskName, setTaskName] = useState("");
 
+  const dispatch = useAppDispatch();
+
+  const { id } = useParams();
+
   const addTask = async () => {
-    // Если массив пустой, то ставлю дефолтную позицию
-    // иначе беру последнюю карточку из массива и ее позицию
+    const idList = sortedCards[0].idList!;
     const newPosition = () => {
       if (sortedCards.length === 0) {
         return 60000;
       }
       return sortedCards[sortedCards.length - 1].position! + 60000;
     };
-    handleAddTask({ name: taskName, position: newPosition() });
 
+    dispatch(
+      createNewTask({
+        idBoard: id!,
+        idList,
+        name: taskName,
+        position: newPosition(),
+      })
+    );
+    
     setIsAdding((prev) => !prev);
     setTaskName("");
   };

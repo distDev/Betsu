@@ -1,26 +1,5 @@
 import { IList, ITask } from "../Types/board";
 
-type List = {
-  id: string;
-  name: string;
-  idBoard: string;
-  cover: {
-    color: string;
-  };
-};
-
-type Task = {
-  id: string;
-  description: string;
-  name: string;
-  position: number;
-  cover: {
-    color: string;
-  };
-  checkLists: never[];
-  idBoard: string;
-  idList: string;
-};
 
 export const handleDragColumn = (
   lists: IList[],
@@ -58,16 +37,19 @@ export const handleDragTask = (
 
   const currentTask = tasks.find((task) => task.id === draggableId);
 
+  // если при переносе карточка осталась в той же колонне, то она удаляется из нее
   if (destination.droppableId === source.droppableId) {
     updatedTasks.splice(start, 1);
   }
-
+  
+  // карточка вставляется в место, куда ее перенес пользователь
   updatedTasks.splice(end, 0, currentTask!);
 
   let prevTask = updatedTasks[end - 1];
   let nextTask = updatedTasks[end + 1];
   let position = currentTask!.position!;
 
+  // формула trello для вычисления позиции
   if (prevTask && nextTask) {
     position = (prevTask.position! + nextTask.position!) / 2;
   } else if (prevTask) {

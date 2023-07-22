@@ -1,31 +1,19 @@
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Column from "../column";
-import { useEffect } from "react";
-import { cardsFromTrello, listsFromTrello } from "../../Utils/data";
 import AddColumn from "../add-column";
 import { useAppDispatch } from "../../Hooks/useAppDispatch";
 import { useAppSelector } from "../../Hooks/useAppSelector";
-import {
-  addColumn,
-  dragColumn,
-  dragTask,
-  getTasks,
-  setColumns,
-} from "../../Store/taskSlice";
+import { addColumn, dragColumn, dragTask } from "../../Store/task-slice";
 import { useParams } from "react-router-dom";
 
 type Props = {};
 
 const Kanban = () => {
   const { id: idBoard } = useParams();
-  const dispatch = useAppDispatch();
+
   const columns = useAppSelector((state) => state.tasks.columns);
   const filteredList = columns.filter((col) => col.idBoard === idBoard);
-
-  useEffect(() => {
-    dispatch(getTasks({ list: cardsFromTrello }));
-    dispatch(setColumns({ columns: listsFromTrello }));
-  }, []);
+  const dispatch = useAppDispatch();
 
   // обработка перестаскивания
   const handleOnDragEnd = (result: any) => {

@@ -4,7 +4,6 @@ import { FC } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import ColumnMenu from "./menu";
 import { useAppDispatch } from "../../Hooks/useAppDispatch";
-import { addTask } from "../../Store/taskSlice";
 import { useAppSelector } from "../../Hooks/useAppSelector";
 import { useParams } from "react-router-dom";
 import AddTaskForm from "./add-task";
@@ -20,22 +19,6 @@ const Column: FC<Props> = ({ name, id, index }) => {
   const filteredCards = tasks
     .filter((e) => e.idList === id)
     .sort((a, b) => a.position! - b.position!);
-
-  console.log(filteredCards);
-
-  const dispatch = useAppDispatch();
-  const { id: idBoard } = useParams();
-
-  const handleAddTask = (data: { name: string; position: number }) => {
-    dispatch(
-      addTask({
-        name: data.name,
-        position: data.position,
-        idBoard: idBoard,
-        idList: id,
-      })
-    );
-  };
 
   return (
     <Draggable draggableId={id} index={index}>
@@ -84,7 +67,6 @@ const Column: FC<Props> = ({ name, id, index }) => {
                   </Stack>
                   {provided.placeholder}
                   <AddTaskForm
-                    handleAddTask={handleAddTask}
                     sortedCards={filteredCards}
                   />
                 </div>

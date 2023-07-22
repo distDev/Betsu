@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { handleDragColumn, handleDragTask } from "../Utils/kanban-logic";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { handleDragColumn, handleDragTask } from "../Helpers/kanban-logic";
 import { nanoid } from "nanoid";
-import { RootState } from "./store";
 import { IList, ITask } from "../Types/board";
+import { taskApi } from "../Api/task-api";
 
 interface taskState {
   list: ITask[];
@@ -14,6 +14,40 @@ const initialState: taskState = {
   columns: [],
 };
 
+export const createNewTask = createAsyncThunk(
+  "tasks/createNewTask",
+  async (
+    {
+      idList,
+      idBoard,
+      name,
+      position,
+    }: { idList: string; idBoard: string; name: string; position: number },
+    thunkApi
+  ) => {
+    await taskApi.createNewTask({
+      id: nanoid(),
+      closed: false,
+      desc: null,
+      due: null,
+      dueComplete: false,
+      dueReminder: null,
+      idList,
+      idBoard,
+      idMembers: [],
+      name: name,
+      position,
+      subscribed: false,
+      start: null,
+      commentsCount: null,
+      fileCount: null,
+      checkItemsCount: null,
+      checkItemsCheckedCount: null,
+      labels: [],
+    });
+  }
+);
+
 export const taskSlice = createSlice({
   name: "tasks",
   initialState,
@@ -24,29 +58,6 @@ export const taskSlice = createSlice({
 
     setColumns: (state, { payload }) => {
       state.columns = payload.columns;
-    },
-
-    addTask: (state, { payload }) => {
-      state.list.push({
-        id: nanoid(),
-        closed: false,
-        desc: "",
-        due: null,
-        dueComplete: false,
-        dueReminder: null,
-        idList: payload.idList,
-        idBoard: payload.idBoard,
-        idMembers: [],
-        name: payload.name,
-        position: payload.position,
-        subscribed: false,
-        start: null,
-        commentsCount: null,
-        fileCount: null,
-        checkItemsCount: null,
-        checkItemsCheckedCount: null,
-        labels: [],
-      });
     },
 
     deleteTask: (state, { payload }) => {
@@ -94,15 +105,12 @@ export const taskSlice = createSlice({
       state.columns = changedList;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(createNewTask.fulfilled, (state, action) => {});
+  },
 });
 
-export const {
-  getTasks,
-  setColumns,
-  dragColumn,
-  dragTask,
-  addColumn,
-  addTask,
-} = taskSlice.actions;
+export const { getTasks, setColumns, dragColumn, dragTask, addColumn } =
+  taskSlice.actions;
 
 export default taskSlice.reducer;
