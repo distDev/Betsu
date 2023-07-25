@@ -4,12 +4,20 @@ import { ITask } from "../Types/board";
 
 export const taskApi = {
   createNewTask: async (task: ITask) => {
-    const cityRef = collection(db, "tasks");
+    const taskRef = collection(db, "tasks");
 
-    await addDoc(cityRef, task);
+    await addDoc(taskRef, task);
   },
 
-  changePositionTask: async (id: string, position: number, idList: string) => {
+  changePositionTask: async ({
+    id,
+    position,
+    idList,
+  }: {
+    id: string;
+    position: number;
+    idList: string;
+  }) => {
     const taskRef = doc(db, "tasks", id);
 
     await updateDoc(taskRef, {

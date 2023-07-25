@@ -3,10 +3,10 @@ import { FC, useState } from "react";
 import { MdAdd, MdClose } from "react-icons/md";
 
 type Props = {
-  handleAddColumn: any;
+  handleAddList: any;
 };
 
-const AddColumn: FC<Props> = ({ handleAddColumn }) => {
+const AddList: FC<Props> = ({ handleAddList }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [columName, setColumName] = useState("");
 
@@ -17,7 +17,7 @@ const AddColumn: FC<Props> = ({ handleAddColumn }) => {
 
   const handleAdd = () => {
     if (columName) {
-      handleAddColumn(columName);
+      handleAddList(columName);
       handleClear();
     }
     return;
@@ -81,4 +81,4 @@ const AddColumn: FC<Props> = ({ handleAddColumn }) => {
   );
 };
 
-export default AddColumn;
+export default AddList;

@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../../../../firebase.config";
 import { useAppDispatch } from "../../../../Hooks/useAppDispatch";
-import { getTasks, setColumns } from "../../../../Store/task-slice";
+import { setTasks } from "../../../../Store/task-slice";
+import { setLists } from "../../../../Store/list-slice";
 
 type Props = {};
 
@@ -25,7 +26,7 @@ const BoardContent = (props: Props) => {
         tasks.push({ ...data, id: doc.id });
       });
 
-      dispatch(getTasks({ list: tasks }));
+      dispatch(setTasks({ list: tasks }));
     });
 
     // подписка на списки
@@ -37,7 +38,7 @@ const BoardContent = (props: Props) => {
         lists.push({ ...data, id: doc.id });
       });
 
-      dispatch(setColumns({ columns: lists }));
+      dispatch(setLists({ lists }));
     });
 
     return () => {

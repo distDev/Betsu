@@ -42,6 +42,7 @@ export interface ITask {
 export interface IList {
   id: string;
   name: string;
-  idBoard: string;
   subscribed?: boolean;
+  position?: number;
+  idBoard?: string;
 }

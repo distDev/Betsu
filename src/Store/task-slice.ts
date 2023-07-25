@@ -1,17 +1,18 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { handleDragColumn, handleDragTask } from "../Helpers/kanban-logic";
+import {
+  createAsyncThunk,
+  createSlice,
+} from "@reduxjs/toolkit";
+import { handleDrag } from "../Helpers/kanban-logic";
 import { nanoid } from "nanoid";
-import { IList, ITask } from "../Types/board";
+import { ITask } from "../Types/board";
 import { taskApi } from "../Api/task-api";
 
 interface taskState {
   list: ITask[];
-  columns: IList[];
 }
 
 const initialState: taskState = {
   list: [],
-  columns: [],
 };
 
 export const createNewTask = createAsyncThunk(
@@ -48,69 +49,72 @@ export const createNewTask = createAsyncThunk(
   }
 );
 
+export const changePositionTask = createAsyncThunk(
+  "tasks/changePositionTask",
+  async (
+    {
+      destination,
+      end,
+      result,
+      source,
+      start,
+    }: {
+      destination: any;
+      end: any;
+      source: any;
+      result: any;
+      start: any;
+    },
+    { getState, dispatch }
+  ) => {
+    const state = getState() as { tasks: { list: ITask } };
+
+    const changedTasks = handleDrag({
+      data: state.tasks.list,
+      isTask: true,
+      destination,
+      end,
+      result,
+      source,
+      start,
+    });
+
+    if (changedTasks === null) {
+      return;
+    }
+
+    const { position, changedPosition } = changedTasks;
+
+    try {
+      dispatch(setTasks({ list: changedPosition }));
+
+      await taskApi.changePositionTask({
+        id: result.draggableId,
+        idList: destination.droppableId,
+        position,
+      });
+    } catch (error) {}
+  }
+);
+
 export const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    getTasks: (state, { payload }) => {
+    setTasks: (state, { payload }) => {
       state.list = payload.list;
-    },
-
-    setColumns: (state, { payload }) => {
-      state.columns = payload.columns;
     },
 
     deleteTask: (state, { payload }) => {
       state.list = state.list.filter((item) => item.id !== payload.id);
     },
-
-    dragTask: (state, { payload }) => {
-      const changedTasks = handleDragTask(
-        state.list,
-        payload.destination,
-        payload.result,
-        payload.source,
-        payload.end,
-        payload.start
-      );
-
-      if (changedTasks === null) {
-        return;
-      }
-
-      const { changedPosition, position } = changedTasks;
-
-      state.list = changedPosition;
-    },
-
-    addColumn: (state, { payload }) => {
-      state.columns.push({
-        id: nanoid(),
-        name: payload.name,
-        idBoard: payload.idBoard,
-      });
-    },
-
-    deleteColumn: (state, { payload }) => {
-      state.columns = state.columns.filter((col) => col.id !== payload.id);
-    },
-
-    dragColumn: (state, { payload }) => {
-      const changedList = handleDragColumn(
-        state.columns,
-        payload.result,
-        payload.start,
-        payload.end
-      );
-      state.columns = changedList;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(createNewTask.fulfilled, (state, action) => {});
+    builder.addCase(changePositionTask.fulfilled, (state, action) => {});
   },
 });
 
-export const { getTasks, setColumns, dragColumn, dragTask, addColumn } =
-  taskSlice.actions;
+export const { setTasks } = taskSlice.actions;
 
 export default taskSlice.reducer;

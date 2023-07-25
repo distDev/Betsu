@@ -88,12 +88,12 @@ const KanbanCard: FC<Props & ITask> = ({
                 )}
               </Box>
               <Flex>
-                <AvatarGroup size="sm" max={2}>
+                {/* <AvatarGroup size="sm" max={2}>
                   <Avatar
                     name="Ryan Florence"
                     src="https://bit.ly/ryan-florence"
                   />
-                </AvatarGroup>
+                </AvatarGroup> */}
                 <Spacer />
                 <Stack direction="row" spacing="20px" alignItems="end">
                   {fileCount && (

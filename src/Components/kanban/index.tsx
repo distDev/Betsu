@@ -1,35 +1,53 @@
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import Column from "../column";
-import AddColumn from "../add-column";
+import List from "../list";
+import AddList from "../add-list";
 import { useAppDispatch } from "../../Hooks/useAppDispatch";
 import { useAppSelector } from "../../Hooks/useAppSelector";
-import { addColumn, dragColumn, dragTask } from "../../Store/task-slice";
+import { createNewList, dragList } from "../../Store/list-slice";
 import { useParams } from "react-router-dom";
-
-type Props = {};
+import { changePositionTask } from "../../Store/task-slice";
 
 const Kanban = () => {
   const { id: idBoard } = useParams();
 
-  const columns = useAppSelector((state) => state.tasks.columns);
-  const filteredList = columns.filter((col) => col.idBoard === idBoard);
+  const lists = useAppSelector((state) => state.lists.data);
+  const filteredLists = [...lists].sort((a, b) => a.position! - b.position!);
+
   const dispatch = useAppDispatch();
 
-  // обработка перестаскивания
+  // Обработка перестаскивания
   const handleOnDragEnd = (result: any) => {
     let { source, destination, type } = result;
-    let end = destination?.index;
+    let end = destination.index;
     let start = source.index;
 
     if (type === "task") {
-      dispatch(dragTask({ destination, end, result, source, start }));
+      dispatch(
+        changePositionTask({
+          destination,
+          end,
+          result,
+          source,
+          start,
+        })
+      );
     } else {
-      dispatch(dragColumn({ result, start, end }));
+      dispatch(dragList({ destination, end, result, source, start }));
     }
   };
 
-  const handleAddColumn = (name: string) => {
-    dispatch(addColumn({ name, idBoard }));
+  // Создание нового списка
+  const handleAddList = (name: string) => {
+    const newPosition = () => {
+      if (filteredLists.length === 0) {
+        return 60000;
+      }
+      return filteredLists[filteredLists.length - 1].position! + 60000;
+    };
+
+    dispatch(
+      createNewList({ name, idBoard: idBoard!, position: newPosition() })
+    );
   };
 
   return (
@@ -41,11 +59,11 @@ const Kanban = () => {
             {...provided.droppableProps}
             style={{ display: "flex", overflowX: "scroll", height: "85vh" }}
           >
-            {filteredList.map((item, i) => (
-              <Column key={item.id} id={item.id} name={item.name} index={i} />
+            {filteredLists.map((item, i) => (
+              <List key={item.id} id={item.id} name={item.name} index={i} />
             ))}
             {provided.placeholder}
-            <AddColumn handleAddColumn={handleAddColumn} />
+            <AddList handleAddList={handleAddList} />
           </div>
         )}
       </Droppable>

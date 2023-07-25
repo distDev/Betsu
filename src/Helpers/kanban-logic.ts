@@ -1,71 +1,74 @@
 import { IList, ITask } from "../Types/board";
 
+interface IDrag {
+  data: any;
+  destination: any;
+  result: any;
+  source: any;
+  end: any;
+  start: any;
+  isTask?: boolean;
+}
 
-export const handleDragColumn = (
-  lists: IList[],
-  result: any,
-  start: any,
-  end: any
-) => {
-  const currentList = lists.find((e: any) => e.id === result.draggableId);
-  const changedLists = Array.from(lists);
-  changedLists.splice(start, 1);
-  changedLists.splice(end, 0, currentList!);
-
-  return changedLists;
-};
-
-export const handleDragTask = (
-  tasks: ITask[],
-  destination: any,
-  result: any,
-  source: any,
-  end: any,
-  start: any
-): { changedPosition: ITask[]; position: number } | null => {
+export const handleDrag = ({
+  data,
+  destination,
+  result,
+  source,
+  end,
+  start,
+  isTask,
+}: IDrag): {
+  changedPosition: any;
+  position: number;
+} | null => {
   if (!destination) {
     return null;
   }
 
   const { draggableId } = result;
 
-  const filteredTasks = tasks
-    .filter((task) => task.idList === destination.droppableId)
-    .sort((a, b) => a.position! - b.position!);
+  let updatedData;
 
-  const updatedTasks = [...filteredTasks];
+  if (isTask) {
+    updatedData = data
+      .filter((task: ITask) => task.idList === destination.droppableId)
+      .sort((a: any, b: any) => a.position! - b.position!);
+  } else {
+    updatedData = [...data];
+  }
 
-  const currentTask = tasks.find((task) => task.id === draggableId);
+  const currentItem = data.find((item: any) => item.id === draggableId);
 
   // если при переносе карточка осталась в той же колонне, то она удаляется из нее
   if (destination.droppableId === source.droppableId) {
-    updatedTasks.splice(start, 1);
+    updatedData.splice(start, 1);
   }
-  
-  // карточка вставляется в место, куда ее перенес пользователь
-  updatedTasks.splice(end, 0, currentTask!);
 
-  let prevTask = updatedTasks[end - 1];
-  let nextTask = updatedTasks[end + 1];
-  let position = currentTask!.position!;
+  // карточка вставляется в место, куда ее перенес пользователь
+  updatedData.splice(end, 0, currentItem!);
+
+  let prevItem = updatedData[end - 1];
+  let nextItem = updatedData[end + 1];
+  let position = currentItem!.position!;
 
   // формула trello для вычисления позиции
-  if (prevTask && nextTask) {
-    position = (prevTask.position! + nextTask.position!) / 2;
-  } else if (prevTask) {
-    position = prevTask.position! + prevTask.position! / 2;
-  } else if (nextTask) {
-    position = nextTask.position! / 2;
+  if (prevItem && nextItem) {
+    position = (prevItem.position! + nextItem.position!) / 2;
+  } else if (prevItem) {
+    position = prevItem.position! + prevItem.position! / 2;
+  } else if (nextItem) {
+    position = nextItem.position! / 2;
   }
 
-  const changedPosition = tasks.map((task) =>
-    task.id === currentTask!.id
+  const changedPosition = data.map((item: any) =>
+    item.id === currentItem!.id
       ? {
-          ...task,
+          ...item,
           position: position,
           idList: destination.droppableId,
         }
-      : task
+      : item
   );
 
   return { changedPosition, position };

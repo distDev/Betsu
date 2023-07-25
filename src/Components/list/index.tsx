@@ -3,9 +3,7 @@ import Card from "../../Components/card";
 import { FC } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import ColumnMenu from "./menu";
-import { useAppDispatch } from "../../Hooks/useAppDispatch";
 import { useAppSelector } from "../../Hooks/useAppSelector";
-import { useParams } from "react-router-dom";
 import AddTaskForm from "./add-task";
 
 type Props = {
@@ -14,7 +12,7 @@ type Props = {
   index: number;
 };
 
-const Column: FC<Props> = ({ name, id, index }) => {
+const List: FC<Props> = ({ name, id, index }) => {
   const tasks = useAppSelector((state) => state.tasks.list);
   const filteredCards = tasks
     .filter((e) => e.idList === id)
@@ -66,9 +64,7 @@ const Column: FC<Props> = ({ name, id, index }) => {
                     ))}
                   </Stack>
                   {provided.placeholder}
-                  <AddTaskForm
-                    sortedCards={filteredCards}
-                  />
+                  <AddTaskForm sortedCards={filteredCards} idList={id} />
                 </div>
               )}
             </Droppable>
@@ -79,4 +75,4 @@ const Column: FC<Props> = ({ name, id, index }) => {
   );
 };
 
-export default Column;
+export default List;

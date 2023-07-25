@@ -14,9 +14,10 @@ import { useParams } from "react-router-dom";
 
 type Props = {
   sortedCards: ITask[];
+  idList: string;
 };
 
-const AddTaskForm: FC<Props> = ({ sortedCards }) => {
+const AddTaskForm: FC<Props> = ({ sortedCards, idList }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [taskName, setTaskName] = useState("");
 
@@ -25,7 +26,6 @@ const AddTaskForm: FC<Props> = ({ sortedCards }) => {
   const { id } = useParams();
 
   const addTask = async () => {
-    const idList = sortedCards[0].idList!;
     const newPosition = () => {
       if (sortedCards.length === 0) {
         return 60000;
@@ -41,7 +41,7 @@ const AddTaskForm: FC<Props> = ({ sortedCards }) => {
         position: newPosition(),
       })
     );
-    
+
     setIsAdding((prev) => !prev);
     setTaskName("");
   };
