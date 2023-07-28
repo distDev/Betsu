@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { handleDrag } from "../Helpers/kanban-logic";
 import { nanoid } from "nanoid";
-import { IList } from "../Types/board";
+import { IDragItem, IList } from "../Types/board";
 import { listApi } from "../Api/list-api";
+import { DraggableLocation } from "react-beautiful-dnd";
 
 interface taskState {
   data: IList[];
@@ -32,6 +33,40 @@ export const createNewList = createAsyncThunk(
   }
 );
 
+export const changePositionList = createAsyncThunk(
+  "tasks/changePositionList",
+  async (
+    { destination, end, result, source, start }: IDragItem,
+    { getState, dispatch }
+  ) => {
+    const state = getState() as { lists: { data: IList } };
+
+    const changedLists = handleDrag({
+      data: state.lists.data,
+      destination,
+      end,
+      result,
+      source,
+      start,
+    });
+
+    if (changedLists === null) {
+      return;
+    }
+
+    const { position, changedPosition } = changedLists;
+
+    try {
+      dispatch(setLists({ lists: changedPosition }));
+
+      await listApi.changePositionList({
+        id: result.draggableId,
+        position,
+      });
+    } catch (error) {}
+  }
+);
+
 export const taskSlice = createSlice({
   name: "lists",
   initialState,
@@ -39,41 +74,12 @@ export const taskSlice = createSlice({
     setLists: (state, { payload }) => {
       state.data = payload.lists;
     },
-
-    addList: (state, { payload }) => {
-      state.data.push({
-        id: nanoid(),
-        name: payload.name,
-        idBoard: payload.idBoard,
-      });
-    },
-
-    dragList: (state, { payload }) => {
-      const data = state.data;
-
-      const changedTasks = handleDrag({
-        data,
-        destination: payload.destination,
-        end: payload.end,
-        result: payload.result,
-        source: payload.source,
-        start: payload.start,
-      });
-
-      if (changedTasks === null) {
-        return;
-      }
-
-      const { changedPosition, position } = changedTasks;
-
-      state.data = changedPosition;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(createNewList.fulfilled, (state, action) => {});
   },
 });
 
-export const { setLists, dragList } = taskSlice.actions;
+export const { setLists } = taskSlice.actions;
 
 export default taskSlice.reducer;

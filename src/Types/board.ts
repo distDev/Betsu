@@ -1,3 +1,5 @@
+import { DraggableLocation, DropResult } from "react-beautiful-dnd";
+
 export interface IBoard {
   idBoard: string;
   idUser?: string;
@@ -45,4 +47,14 @@ export interface IList {
   subscribed?: boolean;
   position?: number;
   idBoard?: string;
+}
+
+export interface IDragItem {
+  data?: any;
+  destination: DraggableLocation | null | undefined;
+  result: DropResult;
+  source: DraggableLocation;
+  end: number;
+  start: number;
+  isTask?: boolean;
 }

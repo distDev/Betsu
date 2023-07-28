@@ -7,14 +7,13 @@ import {
   Spacer,
   Stack,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
-import { FC, useRef } from "react";
+import { FC } from "react";
 import { Draggable } from "react-beautiful-dnd";
-import CardDetails from "../card-details";
 import { MdAttachFile } from "react-icons/md";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { ITask } from "../../Types/board";
+import { useSearchParams } from "react-router-dom";
 
 type Props = {
   index: number;
@@ -38,8 +37,7 @@ const KanbanCard: FC<Props & ITask> = ({
   start,
   subscribed,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const cardRef = useRef(null);
+  let [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <>
@@ -55,8 +53,7 @@ const KanbanCard: FC<Props & ITask> = ({
               p="15px"
               m="5px 0px"
               borderRadius="8px"
-              ref={cardRef}
-              onClick={onOpen}
+              onClick={() => setSearchParams("task=" + id)}
               cursor="pointer"
             >
               {labels.length > 0 && (
@@ -114,10 +111,6 @@ const KanbanCard: FC<Props & ITask> = ({
           </div>
         )}
       </Draggable>
-
-      {/* Детальная информация о карточке */}
-
-      <CardDetails isOpen={isOpen} onClose={onClose} finalFocusRef={cardRef} />
     </>
   );
 };

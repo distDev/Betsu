@@ -12,24 +12,25 @@ import {
   PopoverTrigger,
   Stack,
 } from "@chakra-ui/react";
-import React from "react";
-import { MdMoreVert, MdOutlinePersonOutline } from "react-icons/md";
+import { FC, ReactNode } from "react";
+import { MdMoreVert } from "react-icons/md";
 
-type Props = {};
+type Props = {
+  children: ReactNode;
+};
 
-const СardDetailHeaderUsers = (props: Props) => {
+const UsersListPopover: FC<Props> = ({ children }) => {
   return (
-    <Popover>
-      <PopoverTrigger>
-        <IconButton
-          aria-label="кнопка открытия списка пользователей"
-          variant="ghost"
-          icon={<MdOutlinePersonOutline />}
-          color="textSecond"
-          fontSize="19px"
-        />
-      </PopoverTrigger>
+    <Popover isLazy>
+      <PopoverTrigger>{children}</PopoverTrigger>
+      <PopoverContainer />
+    </Popover>
+  );
+};
 
+const PopoverContainer: FC = () => {
+  return (
+    <>
       <PopoverContent>
         <PopoverArrow />
         <PopoverCloseButton />
@@ -76,8 +77,8 @@ const СardDetailHeaderUsers = (props: Props) => {
           </Button>
         </PopoverBody>
       </PopoverContent>
-    </Popover>
+    </>
   );
 };
 
-export default СardDetailHeaderUsers;
+export default UsersListPopover;

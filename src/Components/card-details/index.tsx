@@ -7,34 +7,27 @@ import CardDetailsDescription from "./description";
 import CardDetailsAttachments from "./attachments/CardDetailAttachments";
 import CardDetailsCheckList from "./check-list";
 import CardDetailsComments from "./comments";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { taskApi } from "../../Api/task-api";
+import { useAppSelector } from "../../Hooks/useAppSelector";
+import CardDetailsContent from "./Content";
 
 type Props = {
   isOpen: boolean;
-  onClose: () => void;
-  finalFocusRef: React.MutableRefObject<null>;
 };
 
-const CardDetails: FC<Props> = ({ isOpen, onClose, finalFocusRef }) => {
+const CardDetails: FC<Props> = ({ isOpen }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  
   return (
     <Drawer
       isOpen={isOpen}
       placement="right"
-      onClose={onClose}
-      finalFocusRef={finalFocusRef}
+      onClose={() => setSearchParams("")}
       size="lg"
     >
       <DrawerOverlay />
-      <DrawerContent overflowY="auto" position="relative">
-        <CardDetailsHeader />
-        <Stack spacing="60px" p="25px">
-          <CardDetailsTitle />
-          <CardDetailsData />
-          <CardDetailsDescription />
-          <CardDetailsAttachments />
-          <CardDetailsCheckList />
-          <CardDetailsComments />
-        </Stack>
-      </DrawerContent>
+      {isOpen && <CardDetailsContent />}
     </Drawer>
   );
 };

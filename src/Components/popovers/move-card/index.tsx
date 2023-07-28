@@ -17,7 +17,7 @@ type Props = {
   children: ReactNode;
 };
 
-const AttachmentsPopover: FC<Props> = ({ children }) => {
+const MoveCardPopover: FC<Props> = ({ children }) => {
   return (
     <Popover isLazy>
       <PopoverTrigger>{children}</PopoverTrigger>
@@ -54,5 +54,4 @@ const PopoverContainer: FC = () => {
   );
 };
 
-
-export default AttachmentsPopover;
+export default MoveCardPopover;

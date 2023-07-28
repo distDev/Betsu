@@ -13,7 +13,6 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
-  Stack,
   Text,
 } from "@chakra-ui/react";
 import { FC, ReactNode } from "react";
@@ -23,11 +22,18 @@ type Props = {
   children: ReactNode;
 };
 
-const KanbanCardDetailHeaderLabels: FC<Props> = ({ children }) => {
+const LabelsListPopover: FC<Props> = ({ children }) => {
   return (
-    <Popover>
+    <Popover isLazy>
       <PopoverTrigger>{children}</PopoverTrigger>
+      <PopoverContainer />
+    </Popover>
+  );
+};
 
+const PopoverContainer: FC = () => {
+  return (
+    <>
       <PopoverContent>
         <PopoverArrow />
         <PopoverCloseButton />
@@ -128,8 +134,8 @@ const KanbanCardDetailHeaderLabels: FC<Props> = ({ children }) => {
           </Box>
         </PopoverBody>
       </PopoverContent>
-    </Popover>
+    </>
   );
 };
 
-export default KanbanCardDetailHeaderLabels;
+export default LabelsListPopover;

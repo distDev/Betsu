@@ -1,10 +1,10 @@
 import { Box, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, FC } from "react";
 import { AutoResizeTextarea } from "../../../Components/UI/AutoResizeTextarea";
 
 type Props = {};
 
-const CardDetailTitle = (props: Props) => {
+const CardDetailTitle: FC<Props> = () => {
   const [title, setTitle] = useState(
     "Сделать верстку главной страницы и протестировать"
   );

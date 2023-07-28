@@ -1,15 +1,7 @@
-import { IList, ITask } from "../Types/board";
+import { IDragItem, ITask } from "../Types/board";
 
-interface IDrag {
-  data: any;
-  destination: any;
-  result: any;
-  source: any;
-  end: any;
-  start: any;
-  isTask?: boolean;
-}
-
+// функция для обратотки перестаскивания, она возвращает измененный массив
+// и новую позицию для перетаскиваемого элемента
 export const handleDrag = ({
   data,
   destination,
@@ -18,7 +10,7 @@ export const handleDrag = ({
   end,
   start,
   isTask,
-}: IDrag): {
+}: IDragItem): {
   changedPosition: any;
   position: number;
 } | null => {

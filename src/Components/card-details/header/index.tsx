@@ -1,6 +1,5 @@
 import { IconButton, Spacer, Stack } from "@chakra-ui/react";
-import СardDetailHeaderUsers from "./users/index";
-import React from "react";
+import { FC } from "react";
 import { BsTag } from "react-icons/bs";
 import {
   MdAccessTime,
@@ -9,14 +8,21 @@ import {
   MdEast,
   MdOutlineCheckBox,
   MdOutlineDelete,
+  MdOutlinePersonOutline,
 } from "react-icons/md";
-import CardDetailHeaderAttachments from "./attachments";
-import KanbanCardDetailHeaderCheckList from "./check-list";
-import KanbanCardDetailHeaderLabels from "./labels";
+import UsersListPopover from "../../popovers/user-list";
+import AttachmentsPopover from "../../popovers/attachments";
+import LabelsListPopover from "../../popovers/labels-list";
+import DueDatePopover from "../../popovers/due-date";
+import CheckListsPopover from "../../popovers/check-lists";
+import CopyCardPopover from "../../popovers/copy-card";
+import MoveCardPopover from "../../popovers/move-card";
 
-type Props = {};
+type Props = {
+  deleteCard: () => void;
+};
 
-const CardDetailHeader = (props: Props) => {
+const CardDetailHeader: FC<Props> = ({ deleteCard }) => {
   return (
     <Stack
       spacing="10px"
@@ -29,8 +35,16 @@ const CardDetailHeader = (props: Props) => {
       w="full"
       zIndex="100"
     >
-      <СardDetailHeaderUsers />
-      <CardDetailHeaderAttachments>
+      <UsersListPopover>
+        <IconButton
+          aria-label="кнопка открытия списка пользователей"
+          variant="ghost"
+          icon={<MdOutlinePersonOutline />}
+          color="textSecond"
+          fontSize="19px"
+        />
+      </UsersListPopover>
+      <AttachmentsPopover>
         <IconButton
           aria-label="кнопка для добавления вложения"
           variant="ghost"
@@ -38,9 +52,9 @@ const CardDetailHeader = (props: Props) => {
           color="textSecond"
           fontSize="19px"
         />
-      </CardDetailHeaderAttachments>
+      </AttachmentsPopover>
       <Spacer />
-      <KanbanCardDetailHeaderLabels>
+      <LabelsListPopover>
         <IconButton
           aria-label="кнопка открытия списка пользователей"
           variant="ghost"
@@ -48,42 +62,52 @@ const CardDetailHeader = (props: Props) => {
           color="textSecond"
           fontSize="19px"
         />
-      </KanbanCardDetailHeaderLabels>
+      </LabelsListPopover>
+      <DueDatePopover>
+        <IconButton
+          aria-label="кнопка открытия списка пользователей"
+          variant="ghost"
+          icon={<MdAccessTime />}
+          color="textSecond"
+          fontSize="19px"
+        />
+      </DueDatePopover>
+      <CheckListsPopover>
+        <IconButton
+          aria-label="кнопка открытия списка пользователей"
+          variant="ghost"
+          icon={<MdOutlineCheckBox />}
+          color="textSecond"
+          fontSize="19px"
+        />
+      </CheckListsPopover>
+      <CopyCardPopover>
+        <IconButton
+          aria-label="кнопка открытия списка пользователей"
+          variant="ghost"
+          icon={<MdContentCopy />}
+          color="textSecond"
+          fontSize="19px"
+        />
+      </CopyCardPopover>
 
-      <IconButton
-        aria-label="кнопка открытия списка пользователей"
-        variant="ghost"
-        icon={<MdAccessTime />}
-        color="textSecond"
-        fontSize="19px"
-      />
-      <IconButton
-        aria-label="кнопка открытия списка пользователей"
-        variant="ghost"
-        icon={<MdOutlineCheckBox />}
-        color="textSecond"
-        fontSize="19px"
-      />
-      <IconButton
-        aria-label="кнопка открытия списка пользователей"
-        variant="ghost"
-        icon={<MdContentCopy />}
-        color="textSecond"
-        fontSize="19px"
-      />
-      <IconButton
-        aria-label="кнопка открытия списка пользователей"
-        variant="ghost"
-        icon={<MdEast />}
-        color="textSecond"
-        fontSize="19px"
-      />
+      <MoveCardPopover>
+        <IconButton
+          aria-label="кнопка открытия списка пользователей"
+          variant="ghost"
+          icon={<MdEast />}
+          color="textSecond"
+          fontSize="19px"
+        />
+      </MoveCardPopover>
+
       <IconButton
         aria-label="кнопка открытия списка пользователей"
         variant="ghost"
         icon={<MdOutlineDelete />}
         color="textSecond"
         fontSize="19px"
+        onClick={deleteCard}
       />
     </Stack>
   );

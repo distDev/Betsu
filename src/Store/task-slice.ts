@@ -1,10 +1,7 @@
-import {
-  createAsyncThunk,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { handleDrag } from "../Helpers/kanban-logic";
 import { nanoid } from "nanoid";
-import { ITask } from "../Types/board";
+import { IDragItem, ITask } from "../Types/board";
 import { taskApi } from "../Api/task-api";
 
 interface taskState {
@@ -52,19 +49,7 @@ export const createNewTask = createAsyncThunk(
 export const changePositionTask = createAsyncThunk(
   "tasks/changePositionTask",
   async (
-    {
-      destination,
-      end,
-      result,
-      source,
-      start,
-    }: {
-      destination: any;
-      end: any;
-      source: any;
-      result: any;
-      start: any;
-    },
+    { destination, end, result, source, start }: IDragItem,
     { getState, dispatch }
   ) => {
     const state = getState() as { tasks: { list: ITask } };
@@ -90,10 +75,17 @@ export const changePositionTask = createAsyncThunk(
 
       await taskApi.changePositionTask({
         id: result.draggableId,
-        idList: destination.droppableId,
+        idList: destination!.droppableId,
         position,
       });
     } catch (error) {}
+  }
+);
+
+export const deleteTask = createAsyncThunk(
+  "tasks/deleteTask",
+  async (id: string, thunkApi) => {
+    await taskApi.deleteTask(id);
   }
 );
 
@@ -104,14 +96,11 @@ export const taskSlice = createSlice({
     setTasks: (state, { payload }) => {
       state.list = payload.list;
     },
-
-    deleteTask: (state, { payload }) => {
-      state.list = state.list.filter((item) => item.id !== payload.id);
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(createNewTask.fulfilled, (state, action) => {});
     builder.addCase(changePositionTask.fulfilled, (state, action) => {});
+    builder.addCase(deleteTask.fulfilled, (state, action) => {});
   },
 });
 

@@ -35,15 +35,16 @@ const BoardHeaderUsers = (props: Props) => {
           <PopoverCloseButton />
           <PopoverHeader>Пользователи доски</PopoverHeader>
           <PopoverBody>
-            <Stack spacing='10px' mt='10px'>
+            <Stack spacing="10px" mt="10px">
               {Array(3)
                 .fill("_")
-                .map(() => (
+                .map((_, i) => (
                   <Box
                     minH="40px"
                     display="flex"
                     w="full"
                     justifyContent="space-between"
+                    key={i}
                   >
                     <Box display="flex">
                       <Image

@@ -1,9 +1,9 @@
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import List from "../list";
 import AddList from "../add-list";
 import { useAppDispatch } from "../../Hooks/useAppDispatch";
 import { useAppSelector } from "../../Hooks/useAppSelector";
-import { createNewList, dragList } from "../../Store/list-slice";
+import { changePositionList, createNewList } from "../../Store/list-slice";
 import { useParams } from "react-router-dom";
 import { changePositionTask } from "../../Store/task-slice";
 
@@ -16,9 +16,9 @@ const Kanban = () => {
   const dispatch = useAppDispatch();
 
   // Обработка перестаскивания
-  const handleOnDragEnd = (result: any) => {
+  const handleOnDragEnd = (result: DropResult) => {
     let { source, destination, type } = result;
-    let end = destination.index;
+    let end = destination!.index;
     let start = source.index;
 
     if (type === "task") {
@@ -32,7 +32,7 @@ const Kanban = () => {
         })
       );
     } else {
-      dispatch(dragList({ destination, end, result, source, start }));
+      dispatch(changePositionList({ destination, end, result, source, start }));
     }
   };
 

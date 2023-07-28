@@ -1,6 +1,18 @@
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase.config";
 import { ITask } from "../Types/board";
+
+interface IChangePositionTask {
+  id: string;
+  position: number;
+  idList: string;
+}
 
 export const taskApi = {
   createNewTask: async (task: ITask) => {
@@ -9,15 +21,7 @@ export const taskApi = {
     await addDoc(taskRef, task);
   },
 
-  changePositionTask: async ({
-    id,
-    position,
-    idList,
-  }: {
-    id: string;
-    position: number;
-    idList: string;
-  }) => {
+  changePositionTask: async ({ id, position, idList }: IChangePositionTask) => {
     const taskRef = doc(db, "tasks", id);
 
     await updateDoc(taskRef, {
@@ -26,7 +30,11 @@ export const taskApi = {
     });
   },
 
-  deleteTask: async () => {},
+  deleteTask: async (id: string) => {
+    const taskRef = doc(db, "tasks", id);
+
+    await deleteDoc(taskRef);
+  },
 
   updateTaskTitle: async () => {},
 
