@@ -1,13 +1,25 @@
 import { Box, Text } from "@chakra-ui/react";
-import { useState, FC } from "react";
+import { useState, useEffect, FC } from "react";
 import { AutoResizeTextarea } from "../../../Components/UI/AutoResizeTextarea";
+import { useDebounce } from "../../../Hooks/useDebounce";
+import { taskApi } from "../../../Api/task-api";
 
-type Props = {};
+type Props = {
+  name: string;
+  idTask: string;
+};
 
-const CardDetailTitle: FC<Props> = () => {
-  const [title, setTitle] = useState(
-    "Сделать верстку главной страницы и протестировать"
-  );
+const CardDetailTitle: FC<Props> = ({ name, idTask }) => {
+  const [title, setTitle] = useState(name);
+  const debouncedValue = useDebounce<string>(title, 500);
+
+  useEffect(() => {
+    const updateTitle = async () => {
+      await taskApi.updateTaskTitle({ id: idTask, name: debouncedValue });
+    };
+    updateTitle();
+  }, [debouncedValue]);
+
   return (
     <Box>
       <AutoResizeTextarea

@@ -14,6 +14,11 @@ interface IChangePositionTask {
   idList: string;
 }
 
+interface IChangeTitle {
+  id: string;
+  name: string;
+}
+
 export const taskApi = {
   createNewTask: async (task: ITask) => {
     const taskRef = collection(db, "tasks");
@@ -36,9 +41,21 @@ export const taskApi = {
     await deleteDoc(taskRef);
   },
 
-  updateTaskTitle: async () => {},
+  updateTaskTitle: async ({ id, name }: IChangeTitle) => {
+    const taskRef = doc(db, "tasks", id);
 
-  updateTaskDesc: async () => {},
+    await updateDoc(taskRef, {
+      name,
+    });
+  },
+
+  updateTaskDesc: async ({ id, desc }: { id: string; desc: string }) => {
+    const taskRef = doc(db, "tasks", id);
+
+    await updateDoc(taskRef, {
+      desc,
+    });
+  },
 
   moveTask: async () => {},
 

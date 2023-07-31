@@ -1,3 +1,5 @@
+import { FC, ReactNode, useState } from "react";
+
 import {
   Box,
   Button,
@@ -15,12 +17,26 @@ import {
   PopoverTrigger,
   Text,
 } from "@chakra-ui/react";
-import { FC, ReactNode } from "react";
+
 import { MdModeEdit } from "react-icons/md";
+import { labels } from "../../../Utils/data";
 
 type Props = {
   children: ReactNode;
 };
+
+const userDataLabels = [
+  {
+    id: "63720e4d8ff291ac8742b8654f",
+    color: "#46F3A0",
+  },
+  {
+    id: "63720e4d8291ac833f742b865552",
+    idBoard: "63720e4d0437d303ebc6fe3d",
+    name: "фиолетовый",
+    color: "#2392F8",
+  },
+];
 
 const LabelsListPopover: FC<Props> = ({ children }) => {
   return (
@@ -32,6 +48,13 @@ const LabelsListPopover: FC<Props> = ({ children }) => {
 };
 
 const PopoverContainer: FC = () => {
+  const [userLabels, setUserLabels] = useState(userDataLabels);
+  const [boardLabels, setBoardLabels] = useState(labels);
+
+  const checkIncludes = (id: string) => {
+    return userLabels.find((label) => label.id === id) ? true : false;
+  };
+
   return (
     <>
       <PopoverContent>
@@ -43,93 +66,31 @@ const PopoverContainer: FC = () => {
           <Box mt="15px">
             <Text fontSize="14px">Метки</Text>
             <List>
-              <ListItem mt="7px">
-                <span>
-                  <Box display="flex" gap="10px">
-                    <Checkbox />
-                    <Box
-                      bg="bgGreen"
-                      w="full"
-                      borderRadius="5px"
-                      textAlign="end"
-                      p="2px 5px"
-                    >
-                      <IconButton
-                        icon={<MdModeEdit />}
-                        aria-label="изменить цвет"
-                        size="sm"
-                        variant="ghost"
+              {boardLabels.map((label) => (
+                <ListItem mt="7px" key={label.id}>
+                  <span>
+                    <Box display="flex" gap="10px">
+                      <Checkbox
+                        defaultChecked={checkIncludes(label.id)}
                       />
+                      <Box
+                        bg={label.color}
+                        w="full"
+                        borderRadius="5px"
+                        textAlign="end"
+                        p="2px 5px"
+                      >
+                        <IconButton
+                          icon={<MdModeEdit />}
+                          aria-label="изменить цвет"
+                          size="sm"
+                          variant="ghost"
+                        />
+                      </Box>
                     </Box>
-                  </Box>
-                </span>
-              </ListItem>
-
-              <ListItem mt="7px">
-                <span>
-                  <Box display="flex" gap="10px">
-                    <Checkbox />
-                    <Box
-                      bg="bgPurple"
-                      w="full"
-                      borderRadius="5px"
-                      textAlign="end"
-                      p="2px 5px"
-                    >
-                      <IconButton
-                        icon={<MdModeEdit />}
-                        aria-label="изменить цвет"
-                        size="sm"
-                        variant="ghost"
-                      />
-                    </Box>
-                  </Box>
-                </span>
-              </ListItem>
-
-              <ListItem mt="7px">
-                <span>
-                  <Box display="flex" gap="10px">
-                    <Checkbox />
-                    <Box
-                      bg="bgGreen"
-                      w="full"
-                      borderRadius="5px"
-                      textAlign="end"
-                      p="2px 5px"
-                    >
-                      <IconButton
-                        icon={<MdModeEdit />}
-                        aria-label="изменить цвет"
-                        size="sm"
-                        variant="ghost"
-                      />
-                    </Box>
-                  </Box>
-                </span>
-              </ListItem>
-
-              <ListItem mt="7px">
-                <span>
-                  <Box display="flex" gap="10px">
-                    <Checkbox />
-                    <Box
-                      bg="bgPurple"
-                      w="full"
-                      borderRadius="5px"
-                      textAlign="end"
-                      p="2px 5px"
-                    >
-                      <IconButton
-                        icon={<MdModeEdit />}
-                        aria-label="изменить цвет"
-                        size="sm"
-                        variant="ghost"
-                      />
-                    </Box>
-                  </Box>
-                </span>
-              </ListItem>
+                  </span>
+                </ListItem>
+              ))}
             </List>
           </Box>
         </PopoverBody>
