@@ -13,5 +13,5 @@ Frontend:
 * React Testing Library
 
 Server: 
-* Firebse
+* Firebase
 
