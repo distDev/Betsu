@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { handleDrag } from "../Helpers/kanban-logic";
+import { handleDrag } from "../../Helpers/kanban-logic";
 import { nanoid } from "nanoid";
-import { IDragItem, ITask } from "../Types/board";
-import { taskApi } from "../Api/task-api";
+import { IDragItem, ITask } from "../../Types/board";
+import { taskApi } from "../../Api/task-api";
 
 interface taskState {
   list: ITask[];

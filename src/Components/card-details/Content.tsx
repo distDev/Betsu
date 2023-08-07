@@ -15,10 +15,10 @@ type Props = {};
 
 const CardDetailsContent: FC<Props> = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { id: idBoard } = useParams();
   const idTask = useLocation().search.replace("?task=", "");
+  const { id: idBoard } = useParams();
 
-  const { name, desc } = useTask(idTask, idBoard!);
+  const { name, desc, idList, labels } = useTask(idTask, idBoard!);
 
   const handleDeleteCard = () => {
     taskApi.deleteTask(idTask);
@@ -27,10 +27,10 @@ const CardDetailsContent: FC<Props> = () => {
 
   return (
     <DrawerContent overflowY="auto" position="relative">
-      <CardDetailsHeader deleteCard={handleDeleteCard} />
+      <CardDetailsHeader deleteCard={handleDeleteCard} labels={labels} />
       <Stack spacing="60px" p="25px">
-        {name && <CardDetailsTitle name={name} idTask={idTask} />}
-        <CardDetailsData />
+        {name && <CardDetailsTitle name={name} idTask={idTask} idList={idList} />}
+        <CardDetailsData labels={labels} />
         <CardDetailsDescription desc={desc} idTask={idTask} />
         <CardDetailsAttachments />
         <CardDetailsCheckList />

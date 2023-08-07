@@ -9,7 +9,7 @@ import {
 import { FC, useState } from "react";
 import { ITask } from "../../../Types/board";
 import { useAppDispatch } from "../../../Hooks/useAppDispatch";
-import { createNewTask } from "../../../Store/task-slice";
+import { createNewTask } from "../../../Store/slices/task-slice";
 import { useParams } from "react-router-dom";
 
 type Props = {

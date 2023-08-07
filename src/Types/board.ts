@@ -58,3 +58,9 @@ export interface IDragItem {
   start: number;
   isTask?: boolean;
 }
+
+export interface ILabel {
+  id: string;
+  name: string;
+  color: string;
+}

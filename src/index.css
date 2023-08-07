@@ -18,6 +18,15 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.upload-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 50;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -73,3 +82,5 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+

@@ -309,23 +309,34 @@ let members = [
   },
 ];
 
-export let labels = [
-  {
-    id: "63720e4d8ff291ac8742b8654f",
-    idBoard: "63720e4d0437d303ebc6fe3d",
-    name: "зеленый",
-    color: "#46F3A0",
-  },
-  {
-    id: "63720e4d8fwaf291ac8742b86555",
-    idBoard: "63720e4d0437d303ebc6fe3d",
-    name: "фиолетовый",
-    color: "#B891F8",
-  },
-  {
-    id: "63720e4d8291ac833f742b865552",
-    idBoard: "63720e4d0437d303ebc6fe3d",
-    name: "фиолетовый",
-    color: "#2392F8",
-  },
-];
+export let labelsData = {
+  id: "312321ffaw",
+  idBoard: "63720e4d0437d303ebc6fe3d",
+  labels: [
+    {
+      id: "63720e4d8ff291ac8742b8654f",
+      name: "зеленый",
+      color: "#46F3A0",
+    },
+    {
+      id: "63720e4d8fwaf291ac8742b86555",
+      name: "фиолетовый",
+      color: "#B891F8",
+    },
+    {
+      id: "63720e4d829f1ac833f742b865552",
+      name: "синий",
+      color: "#2392F8",
+    },
+    {
+      id: "63720e355324d8291ac833f742b865552",
+      name: "красный",
+      color: "#FF3838",
+    },
+    {
+      id: "63720e35532fwafhkm42b865552",
+      name: "оранжевый",
+      color: "#F8BD1C",
+    },
+  ],
+};

@@ -4,7 +4,6 @@ import { db } from "../../firebase.config";
 
 const useTask = (idTask: string, idBoard: string) => {
   const [task, setTask] = useState<any>({});
-  const [labels, setLabels] = useState<any>([]);
   const [checkLists, setCheckLists] = useState<any>([]);
   const [dueDate, setDueDate] = useState<any>();
   const [comments, setComments] = useState<any>();
@@ -35,23 +34,18 @@ const useTask = (idTask: string, idBoard: string) => {
       setTask(doc.data());
     });
 
-    // получение меток
-    const unsubscribeLabels = onSnapshot(labelsRef, (doc) => {
-      setLabels(doc.data());
-    });
-
     // получение чек-листов
 
     return () => {
       unsubscribeTask();
-      unsubscribeLabels();
     };
   }, []);
 
   return {
     name: task.name,
     desc: task.desc,
-    // labels: task.labels,
+    labels: task.labels,
+    idList: task.idList,
   };
 };
 

@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 
 import {
   Box,
@@ -19,41 +19,59 @@ import {
 } from "@chakra-ui/react";
 
 import { MdModeEdit } from "react-icons/md";
-import { labels } from "../../../Utils/data";
+import { labelsData } from "../../../Utils/data";
+import { useLocation, useParams } from "react-router-dom";
+import { boardApi } from "../../../Api/board-api";
+import { ILabel } from "../../../Types/board";
+import { taskApi } from "../../../Api/task-api";
 
 type Props = {
-  children: ReactNode;
+  children?: ReactNode;
+  taskLabels: string[];
 };
 
-const userDataLabels = [
-  {
-    id: "63720e4d8ff291ac8742b8654f",
-    color: "#46F3A0",
-  },
-  {
-    id: "63720e4d8291ac833f742b865552",
-    idBoard: "63720e4d0437d303ebc6fe3d",
-    name: "фиолетовый",
-    color: "#2392F8",
-  },
-];
-
-const LabelsListPopover: FC<Props> = ({ children }) => {
+const LabelsListPopover: FC<Props> = ({ children, taskLabels }) => {
   return (
     <Popover isLazy>
       <PopoverTrigger>{children}</PopoverTrigger>
-      <PopoverContainer />
+      <PopoverContainer taskLabels={taskLabels} />
     </Popover>
   );
 };
 
-const PopoverContainer: FC = () => {
-  const [userLabels, setUserLabels] = useState(userDataLabels);
-  const [boardLabels, setBoardLabels] = useState(labels);
+const PopoverContainer: FC<Props> = ({ taskLabels }) => {
+  const [selectedLabels, setSelectedLabels] = useState<string[]>(taskLabels || []);
+  const [boardLabels, setBoardLabels] = useState<ILabel[]>([]);
 
-  const checkIncludes = (id: string) => {
-    return userLabels.find((label) => label.id === id) ? true : false;
+  const { id: boardId } = useParams();
+  const idTask = useLocation().search.replace("?task=", "");
+
+  const handleChange = (id: string) => {
+    let label = boardLabels.find((label) => label.id === id);
+
+    // удаление метки
+    if (selectedLabels.includes(id)) {
+      let removeLabel = selectedLabels.filter((label) => label !== id);
+
+      setSelectedLabels([...removeLabel]);
+      taskApi.deleteLabel(idTask, label!);
+    }
+
+    // добавление метки
+    else {
+      setSelectedLabels([...selectedLabels, label!.id]);
+      taskApi.addLabel(idTask, label!);
+    }
   };
+
+  useEffect(() => {
+    const getLabels = async () => {
+      const { labels } = await boardApi.getBoardLabels(boardId!);
+      setBoardLabels(labels);
+    };
+
+    getLabels();
+  }, []);
 
   return (
     <>
@@ -71,7 +89,8 @@ const PopoverContainer: FC = () => {
                   <span>
                     <Box display="flex" gap="10px">
                       <Checkbox
-                        defaultChecked={checkIncludes(label.id)}
+                        defaultChecked={selectedLabels.includes(label.id)}
+                        onChange={() => handleChange(label.id)}
                       />
                       <Box
                         bg={label.color}

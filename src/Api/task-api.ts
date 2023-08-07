@@ -1,12 +1,14 @@
 import {
   addDoc,
+  arrayRemove,
+  arrayUnion,
   collection,
   deleteDoc,
   doc,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase.config";
-import { ITask } from "../Types/board";
+import { ILabel, ITask } from "../Types/board";
 
 interface IChangePositionTask {
   id: string;
@@ -54,6 +56,22 @@ export const taskApi = {
 
     await updateDoc(taskRef, {
       desc,
+    });
+  },
+
+  addLabel: async (id: string, data: ILabel) => {
+    const taskRef = doc(db, "tasks", id);
+
+    await updateDoc(taskRef, {
+      labels: arrayUnion(data),
+    });
+  },
+
+  deleteLabel: async (id: string, data: ILabel) => {
+    const taskRef = doc(db, "tasks", id);
+
+    await updateDoc(taskRef, {
+      labels: arrayRemove(data),
     });
   },
 

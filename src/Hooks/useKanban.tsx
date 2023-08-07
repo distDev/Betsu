@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch } from "./useAppDispatch";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebase.config";
-import { setTasks } from "../Store/task-slice";
-import { setLists } from "../Store/list-slice";
+import { setTasks } from "../Store/slices/task-slice";
+import { setLists } from "../Store/slices/list-slice";
 
 type Props = {};
 

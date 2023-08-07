@@ -17,12 +17,16 @@ import DueDatePopover from "../../popovers/due-date";
 import CheckListsPopover from "../../popovers/check-lists";
 import CopyCardPopover from "../../popovers/copy-card";
 import MoveCardPopover from "../../popovers/move-card";
+import { ILabel } from "../../../Types/board";
 
 type Props = {
   deleteCard: () => void;
+  labels: ILabel[];
 };
 
-const CardDetailHeader: FC<Props> = ({ deleteCard }) => {
+const CardDetailHeader: FC<Props> = ({ deleteCard, labels }) => {
+  const idLabels = labels && labels.map((label) => label.id);
+
   return (
     <Stack
       spacing="10px"
@@ -54,15 +58,17 @@ const CardDetailHeader: FC<Props> = ({ deleteCard }) => {
         />
       </AttachmentsPopover>
       <Spacer />
-      <LabelsListPopover>
-        <IconButton
-          aria-label="кнопка открытия списка пользователей"
-          variant="ghost"
-          icon={<BsTag />}
-          color="textSecond"
-          fontSize="19px"
-        />
-      </LabelsListPopover>
+      {labels && (
+        <LabelsListPopover taskLabels={idLabels}>
+          <IconButton
+            aria-label="кнопка открытия списка пользователей"
+            variant="ghost"
+            icon={<BsTag />}
+            color="textSecond"
+            fontSize="19px"
+          />
+        </LabelsListPopover>
+      )}
       <DueDatePopover>
         <IconButton
           aria-label="кнопка открытия списка пользователей"

@@ -3,9 +3,9 @@ import List from "../list";
 import AddList from "../add-list";
 import { useAppDispatch } from "../../Hooks/useAppDispatch";
 import { useAppSelector } from "../../Hooks/useAppSelector";
-import { changePositionList, createNewList } from "../../Store/list-slice";
+import { changePositionList, createNewList } from "../../Store/slices/list-slice";
 import { useParams } from "react-router-dom";
-import { changePositionTask } from "../../Store/task-slice";
+import { changePositionTask } from "../../Store/slices/task-slice";
 
 const Kanban = () => {
   const { id: idBoard } = useParams();
