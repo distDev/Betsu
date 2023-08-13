@@ -38,7 +38,7 @@ export const changePositionList = createAsyncThunk(
     { destination, end, result, source, start }: IDragItem,
     { getState, dispatch }
   ) => {
-    const state = getState() as { lists: { data: IList } };
+    const state = getState() as { lists: { data: IList[] } };
 
     const changedLists = handleDrag({
       data: state.lists.data,

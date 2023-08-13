@@ -1,4 +1,4 @@
-import { IDragItem, ITask } from "../Types/board";
+import { IDragItem, IList, ITask } from "../Types/board";
 
 // функция для обратотки перестаскивания, она возвращает измененный массив
 // и новую позицию для перетаскиваемого элемента
@@ -25,12 +25,12 @@ export const handleDrag = ({
   if (isTask) {
     updatedData = data
       .filter((task: ITask) => task.idList === destination.droppableId)
-      .sort((a: any, b: any) => a.position! - b.position!);
+      .sort((a: ITask, b: ITask) => a.position! - b.position!);
   } else {
-    updatedData = [...data];
+    updatedData = [...data].sort((a: IList, b: IList) => a.position! - b.position!);
   }
 
-  const currentItem = data.find((item: any) => item.id === draggableId);
+  const currentItem = data.find((item: ITask) => item.id === draggableId);
 
   // если при переносе карточка осталась в той же колонне, то она удаляется из нее
   if (destination.droppableId === source.droppableId) {
@@ -43,6 +43,7 @@ export const handleDrag = ({
   let prevItem = updatedData[end - 1];
   let nextItem = updatedData[end + 1];
   let position = currentItem!.position!;
+
 
   // формула trello для вычисления позиции
   if (prevItem && nextItem) {

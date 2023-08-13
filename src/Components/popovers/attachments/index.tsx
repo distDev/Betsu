@@ -31,6 +31,12 @@ const AttachmentsPopover: FC<Props> = ({ children }) => {
 };
 
 const PopoverContainer: FC = () => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      let file = e.target.files[0]
+    }
+  };
+
   return (
     <>
       <PopoverContent>
@@ -54,7 +60,11 @@ const PopoverContainer: FC = () => {
               fontWeight="normal"
             >
               Вставить файл
-              <input type="file" className="upload-input" />
+              <input
+                type="file"
+                onChange={handleChange}
+                className="upload-input"
+              />
             </Button>
           </Box>
           <Box mb="15px">
