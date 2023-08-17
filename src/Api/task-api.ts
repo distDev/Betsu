@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { db, storage } from "../../firebase.config";
 import { ILabel, ITask } from "../Types/board";
-import { ref } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 interface IChangePositionTask {
   id: string;
@@ -83,9 +83,35 @@ export const taskApi = {
     });
   },
 
-  addAttachments: async ({ file, id }: { file: File; id: string }) => {
+  // создание вложения (файлы, фотографии)
+  addAttachments: async ({
+    file,
+    id,
+    name,
+  }: {
+    file: File;
+    id: string;
+    name?: string;
+  }) => {
     const fileStorageRef = ref(storage, `files/${file.name}`);
-    const fileRef = collection(db, "files");
+    const fileRef = collection(db, "attachments");
+
+    // загрузка файла в storage
+    await uploadBytes(fileStorageRef, file);
+
+    const uploadFileUrl = await getDownloadURL(fileStorageRef);
+
+    // добавление документа в firestore
+    await addDoc(fileRef, {
+      idTask: id,
+      idMember: "61eb0532dcb7521a5b3bef19",
+      edgeColor: "#3c3c3c",
+      url: uploadFileUrl,
+      position: 16384,
+      isUpload: true,
+      fileName: name ? name : file.name,
+      type: file.type,
+    });
   },
 
   // перемещение задачи в другой список

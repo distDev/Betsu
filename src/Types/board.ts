@@ -64,3 +64,15 @@ export interface ILabel {
   name: string;
   color: string;
 }
+
+export interface IAttach {
+  fileName: string;
+  type: string;
+  isUpload: boolean;
+  edgeColor: string;
+  url: string;
+  idMember: string;
+  position: number;
+  idTask: string;
+  id: string;
+}

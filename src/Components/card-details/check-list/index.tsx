@@ -27,8 +27,13 @@ const CardDetailsCheckList = (props: Props) => {
         >
           {Array(3)
             .fill("_")
-            .map((card) => (
-              <AccordionItem bg="bgGrey" borderRadius="5px" border="none">
+            .map((_, i) => (
+              <AccordionItem
+                bg="bgGrey"
+                borderRadius="5px"
+                border="none"
+                key={i}
+              >
                 <h2>
                   <AccordionButton p="15px">
                     <Box as="span" flex="1" textAlign="left">
@@ -42,13 +47,14 @@ const CardDetailsCheckList = (props: Props) => {
                     <Stack spacing="10px">
                       {Array(2)
                         .fill("_")
-                        .map(() => (
+                        .map((_, i) => (
                           <Box
                             display="flex"
                             gap="10px"
                             p="10px"
                             borderRadius="5px"
                             bg="white"
+                            key={i}
                           >
                             <Checkbox colorScheme="green">
                               <Text fontWeight="14px" color="textMain">

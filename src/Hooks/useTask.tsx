@@ -7,7 +7,9 @@ const useTask = (idTask: string, idBoard: string) => {
   const [checkLists, setCheckLists] = useState<any>([]);
   const [dueDate, setDueDate] = useState<any>();
   const [comments, setComments] = useState<any>();
-  const [attachments, setAttachments] = useState<any>();
+  const [attachments, setAttachments] = useState<any>([]);
+
+  console.log(attachments);
 
   useEffect(() => {
     const taskRef = doc(db, "tasks", idTask);
@@ -34,10 +36,21 @@ const useTask = (idTask: string, idBoard: string) => {
       setTask(doc.data());
     });
 
-    // получение чек-листов
+    // получение вложений
+    const unsubscribeAttach = onSnapshot(qAttachments, (querySnapshot) => {
+      let lists: any = [];
+
+      querySnapshot.forEach((doc) => {
+        let data = doc.data();
+        lists.push({ ...data, id: doc.id });
+      });
+
+      setAttachments([...lists]);
+    });
 
     return () => {
       unsubscribeTask();
+      unsubscribeAttach();
     };
   }, []);
 
@@ -46,6 +59,7 @@ const useTask = (idTask: string, idBoard: string) => {
     desc: task.desc,
     labels: task.labels,
     idList: task.idList,
+    attachments: attachments,
   };
 };
 

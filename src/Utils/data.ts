@@ -342,19 +342,13 @@ export let labelsData = {
 };
 
 const trelloAttach = {
-  id: "6478b96ba9989852cc98f332",
-  idTask: "6478b96ba9989852cc98f332",
-  idMember: "61eb0532dcb7521a5b3bef19",
-  edgeColor: "#3c3c3c",
-  url: "https://trello.com/1/cards/645bf38f2ea5eb282a2e5d8b/attachments/6478b96ba9989852cc98f332/download/main-banner.jpg",
-  pos: 16384,
-  
+  fileName: "2.webp",
+  type: "image/webp",
   isUpload: true,
-  fileName: "main-banner.jpg",
-  bytes: 432351,
-  date: "2023-06-01T15:29:47.075Z",
-  mimeType: "image/jpeg",
-  name: "main-banner.jpg",
-
- 
+  edgeColor: "#3c3c3c",
+  url: "https://firebasestorage.googleapis.com/v0/b/betsu-718c6.appspot.com/o/files%2F2.webp?alt=media&token=c4d0be3e-a663-46c3-9d7f-2d671a2dde6c",
+  idMember: "61eb0532dcb7521a5b3bef19",
+  pos: 16384,
+  idTask: "O9RLzlFPzxsyqANCkU4Z",
+  id: "8mXkJBtvYWIVDR2w1yZR",
 };

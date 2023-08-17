@@ -15,7 +15,9 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useState } from "react";
+import { taskApi } from "../../../Api/task-api";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   children: ReactNode;
@@ -31,10 +33,23 @@ const AttachmentsPopover: FC<Props> = ({ children }) => {
 };
 
 const PopoverContainer: FC = () => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const idTask = useLocation().search.replace("?task=", "");
+  const [isFileLoading, setisFileLoading] = useState(false);
+
+  const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      let file = e.target.files[0]
+      let file = e.target.files[0];
+      setisFileLoading(true);
+
+      try {
+        await taskApi.addAttachments({ file, id: idTask });
+      } catch (error) {
+        console.error("Произошла ошибка при загрузке файла: " + error);
+      }
+
+      setisFileLoading(false);
     }
+    return;
   };
 
   return (
@@ -58,11 +73,12 @@ const PopoverContainer: FC = () => {
               color="textMain"
               fontSize="14px"
               fontWeight="normal"
+              isLoading={isFileLoading}
             >
               Вставить файл
               <input
                 type="file"
-                onChange={handleChange}
+                onChange={handleUploadFile}
                 className="upload-input"
               />
             </Button>

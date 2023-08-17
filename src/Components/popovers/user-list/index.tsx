@@ -39,12 +39,13 @@ const PopoverContainer: FC = () => {
           <Stack spacing="10px" mt="10px">
             {Array(3)
               .fill("_")
-              .map(() => (
+              .map((_, i) => (
                 <Box
                   minH="40px"
                   display="flex"
                   w="full"
                   justifyContent="space-between"
+                  key={i}
                 >
                   <Box display="flex">
                     <Image
