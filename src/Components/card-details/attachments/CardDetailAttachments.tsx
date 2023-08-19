@@ -1,14 +1,24 @@
 import { FC } from "react";
-import { Box, Center, IconButton, Image, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  IconButton,
+  Link,
+  Stack,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { MdMoreVert } from "react-icons/md";
-import danceImage from "../../../Assets/images/dance.jpg";
 import { IAttach } from "../../../Types/board";
+import AttachmentsMenu from "./menu";
+import AttachmentsCover from "./cover";
 
 type Props = {
   attachments: IAttach[];
 };
 
 const CardDetailsAttachments: FC<Props> = ({ attachments }) => {
+  const { isOpen, onToggle, onClose } = useDisclosure();
+
   return (
     <Box>
       <Text mb="15px" fontSize="16px" fontWeight="medium">
@@ -18,42 +28,38 @@ const CardDetailsAttachments: FC<Props> = ({ attachments }) => {
         {attachments.map((attach) => (
           <Box display="flex" h="130px" justifyContent="space-between">
             <Box w="200px" h="full" bg="bgGrey" borderRadius="6px">
-              {attach.type.startsWith("image") ? (
-                <Image
-                  w="full"
-                  h="full"
-                  objectFit="cover"
-                  borderRadius="5px"
-                  src={attach.url}
-                />
-              ) : (
-                <Center h="full">
-                  <Text fontWeight='semibold' fontSize='20px'>{attach.type.split("/")[1]}</Text>
-                </Center>
-              )}
+              <AttachmentsCover img={attach.url} type={attach.type} />
             </Box>
             <Box w="350px">
-              <Text
+              <Link
                 color="textMain"
                 fontSize="16px"
                 fontWeight="medium"
                 mb="15px"
+                href={attach.url}
+                isExternal
               >
                 {attach.fileName}
-              </Text>
+              </Link>
               <Text color="textSecond" fontSize="14px">
                 Добавлено в 22.02.34 в 15:38
               </Text>
             </Box>
-            <IconButton
-              aria-label="открыть дополнительные параметры"
-              color="textSecond"
-              bg="bgGrey"
-              size="sm"
-              borderRadius="5px"
-              fontSize="19px"
-              icon={<MdMoreVert />}
-            />
+            <AttachmentsMenu
+              fileName={attach.fileName}
+              id={attach.id}
+            >
+              <IconButton
+                onClick={onToggle}
+                aria-label="открыть дополнительные параметры"
+                color="textSecond"
+                bg="bgGrey"
+                size="sm"
+                borderRadius="5px"
+                fontSize="19px"
+                icon={<MdMoreVert />}
+              />
+            </AttachmentsMenu>
           </Box>
         ))}
       </Stack>

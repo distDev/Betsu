@@ -94,7 +94,7 @@ export const taskApi = {
     name?: string;
   }) => {
     const fileStorageRef = ref(storage, `files/${file.name}`);
-    const fileRef = collection(db, "attachments");
+    const attachmentRef = collection(db, "attachments");
 
     // загрузка файла в storage
     await uploadBytes(fileStorageRef, file);
@@ -102,7 +102,7 @@ export const taskApi = {
     const uploadFileUrl = await getDownloadURL(fileStorageRef);
 
     // добавление документа в firestore
-    await addDoc(fileRef, {
+    await addDoc(attachmentRef, {
       idTask: id,
       idMember: "61eb0532dcb7521a5b3bef19",
       edgeColor: "#3c3c3c",
@@ -112,6 +112,13 @@ export const taskApi = {
       fileName: name ? name : file.name,
       type: file.type,
     });
+  },
+
+  // удаление вложения
+  deleteAttachments: async (id: string) => {
+    const attachmentRef = doc(db, "attachments", id);
+
+    await deleteDoc(attachmentRef);
   },
 
   // перемещение задачи в другой список
