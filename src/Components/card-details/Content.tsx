@@ -5,7 +5,7 @@ import CardDetailsTitle from "./title";
 import CardDetailsData from "./data";
 import CardDetailsDescription from "./description";
 import CardDetailsAttachments from "./attachments/CardDetailAttachments";
-import CardDetailsCheckList from "./check-list";
+import CardDetailsCheckLists from "./check-lists";
 import CardDetailsComments from "./comments";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { taskApi } from "../../Api/task-api";
@@ -18,13 +18,17 @@ const CardDetailsContent: FC<Props> = () => {
   const idTask = useLocation().search.replace("?task=", "");
   const { id: idBoard } = useParams();
 
-  const { name, desc, idList, labels, attachments } = useTask(idTask, idBoard!);
+  const { name, desc, idList, labels, attachments, checkLists } = useTask(
+    idTask,
+    idBoard!
+  );
 
   const handleDeleteCard = () => {
     taskApi.deleteTask(idTask);
     setSearchParams("");
   };
 
+  console.log(checkLists)
   return (
     <DrawerContent overflowY="auto" position="relative">
       <CardDetailsHeader deleteCard={handleDeleteCard} labels={labels} />
@@ -35,7 +39,7 @@ const CardDetailsContent: FC<Props> = () => {
         <CardDetailsData labels={labels} />
         <CardDetailsDescription desc={desc} idTask={idTask} />
         {attachments && <CardDetailsAttachments attachments={attachments} />}
-        <CardDetailsCheckList />
+        <CardDetailsCheckLists />
         <CardDetailsComments />
       </Stack>
     </DrawerContent>

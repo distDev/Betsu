@@ -9,8 +9,6 @@ const useTask = (idTask: string, idBoard: string) => {
   const [comments, setComments] = useState<any>();
   const [attachments, setAttachments] = useState<any>([]);
 
-  console.log(attachments);
-
   useEffect(() => {
     const taskRef = doc(db, "tasks", idTask);
     const labelsRef = doc(db, "labels", idTask);
@@ -48,9 +46,27 @@ const useTask = (idTask: string, idBoard: string) => {
       setAttachments([...lists]);
     });
 
+     // получение чек-листов
+     const unsubscribeChecklists = onSnapshot(qCheckList, (querySnapshot) => {
+      let lists: any = [];
+
+      console.log(querySnapshot)
+
+      querySnapshot.forEach((doc) => {
+        let data = doc.data();
+        console.log(data)
+        lists.push({ ...data, id: doc.id });
+      });
+
+      setCheckLists([...lists]);
+    });
+
+    
+
     return () => {
       unsubscribeTask();
       unsubscribeAttach();
+      unsubscribeChecklists();
     };
   }, []);
 
@@ -60,6 +76,8 @@ const useTask = (idTask: string, idBoard: string) => {
     labels: task.labels,
     idList: task.idList,
     attachments: attachments,
+    checkLists: checkLists,
+
   };
 };
 
