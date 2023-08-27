@@ -76,3 +76,18 @@ export interface IAttach {
   idTask: string;
   id: string;
 }
+
+export interface ITodo {
+  id: string;
+  name: string;
+  completed: boolean;
+  due: null;
+  dueReminder: null;
+  idMember: null;
+}
+export interface IChecklist {
+  id: string;
+  idTask: string;
+  name: string;
+  items: ITodo[] | [];
+}

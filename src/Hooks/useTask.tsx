@@ -1,10 +1,11 @@
 import { collection, doc, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase.config";
+import { IChecklist } from "../Types/board";
 
 const useTask = (idTask: string, idBoard: string) => {
   const [task, setTask] = useState<any>({});
-  const [checkLists, setCheckLists] = useState<any>([]);
+  const [checkLists, setCheckLists] = useState<IChecklist[] | []>([]);
   const [dueDate, setDueDate] = useState<any>();
   const [comments, setComments] = useState<any>();
   const [attachments, setAttachments] = useState<any>([]);
@@ -46,22 +47,18 @@ const useTask = (idTask: string, idBoard: string) => {
       setAttachments([...lists]);
     });
 
-     // получение чек-листов
-     const unsubscribeChecklists = onSnapshot(qCheckList, (querySnapshot) => {
+    // получение чек-листов
+    const unsubscribeChecklists = onSnapshot(qCheckList, (querySnapshot) => {
       let lists: any = [];
-
-      console.log(querySnapshot)
 
       querySnapshot.forEach((doc) => {
         let data = doc.data();
-        console.log(data)
+
         lists.push({ ...data, id: doc.id });
       });
 
       setCheckLists([...lists]);
     });
-
-    
 
     return () => {
       unsubscribeTask();
@@ -77,7 +74,6 @@ const useTask = (idTask: string, idBoard: string) => {
     idList: task.idList,
     attachments: attachments,
     checkLists: checkLists,
-
   };
 };
 

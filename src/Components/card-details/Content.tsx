@@ -28,7 +28,6 @@ const CardDetailsContent: FC<Props> = () => {
     setSearchParams("");
   };
 
-  console.log(checkLists)
   return (
     <DrawerContent overflowY="auto" position="relative">
       <CardDetailsHeader deleteCard={handleDeleteCard} labels={labels} />
@@ -39,7 +38,7 @@ const CardDetailsContent: FC<Props> = () => {
         <CardDetailsData labels={labels} />
         <CardDetailsDescription desc={desc} idTask={idTask} />
         {attachments && <CardDetailsAttachments attachments={attachments} />}
-        <CardDetailsCheckLists />
+        {checkLists && <CardDetailsCheckLists checkLists={checkLists} />}
         <CardDetailsComments />
       </Stack>
     </DrawerContent>

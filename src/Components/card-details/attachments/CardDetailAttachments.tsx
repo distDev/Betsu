@@ -26,7 +26,12 @@ const CardDetailsAttachments: FC<Props> = ({ attachments }) => {
       </Text>
       <Stack spacing="15px">
         {attachments.map((attach) => (
-          <Box display="flex" h="130px" justifyContent="space-between">
+          <Box
+            key={attach.id}
+            display="flex"
+            h="130px"
+            justifyContent="space-between"
+          >
             <Box w="200px" h="full" bg="bgGrey" borderRadius="6px">
               <AttachmentsCover img={attach.url} type={attach.type} />
             </Box>
@@ -45,10 +50,7 @@ const CardDetailsAttachments: FC<Props> = ({ attachments }) => {
                 Добавлено в 22.02.34 в 15:38
               </Text>
             </Box>
-            <AttachmentsMenu
-              fileName={attach.fileName}
-              id={attach.id}
-            >
+            <AttachmentsMenu fileName={attach.fileName} id={attach.id}>
               <IconButton
                 onClick={onToggle}
                 aria-label="открыть дополнительные параметры"

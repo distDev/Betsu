@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db, storage } from "../../firebase.config";
-import { ILabel, ITask } from "../Types/board";
+import { ILabel, ITask, ITodo } from "../Types/board";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 interface IChangePositionTask {
@@ -126,4 +126,47 @@ export const taskApi = {
 
   // копирование задачи в другой список
   copyTask: async () => {},
+
+  // добавление задачи в checklist
+  addTodo: async (id: string, todo: ITodo) => {
+    const checklistRef = doc(db, "checklists", id);
+
+    await updateDoc(checklistRef, {
+      items: arrayUnion(todo),
+    });
+  },
+
+  // удаление задачи из checklist
+  deleteTodo: async (id: string, todo: ITodo) => {
+    const checklistRef = doc(db, "checklists", id);
+
+    await updateDoc(checklistRef, {
+      items: arrayRemove(todo),
+    });
+  },
+
+  changeTodo: async () => {},
+
+  checkTodoToggle: async (id: string, todo: ITodo, newTodo: ITodo) => {
+    const checklistRef = doc(db, "checklists", id);
+    try {
+      await updateDoc(checklistRef, {
+        items: arrayRemove(todo),
+      });
+
+      await updateDoc(checklistRef, {
+        items: arrayUnion(newTodo),
+      });
+
+      console.log("Объект успешно обновлен");
+    } catch (error) {
+      console.error("Ошибка при обновлении объекта", error);
+    }
+  },
+
+  removeCheckedTodo: async () => {},
+
+  addTodoList: async () => {},
+
+  deleteTodoList: async () => {},
 };

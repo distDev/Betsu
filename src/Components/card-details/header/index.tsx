@@ -108,7 +108,7 @@ const CardDetailHeader: FC<Props> = ({ deleteCard, labels }) => {
       </MoveCardPopover>
 
       <IconButton
-        aria-label="кнопка открытия списка пользователей"
+        aria-label="удаление задачи"
         variant="ghost"
         icon={<MdOutlineDelete />}
         color="textSecond"
