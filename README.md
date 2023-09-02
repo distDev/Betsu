@@ -1,8 +1,6 @@
 # 🎇 Betsu - Real-time Kanban Planner and Calendar
 Betsu is an realtime agile planner and calendar web app made with React, Redux-Toolkit, Firebase, React Beautiful DND and Chakra UI. It is heavily inspired by Trello.
 
-If you like it, leave a 🌟 because it keeps  motivated. 😊
-
 ## Features
 
 ### Completed
