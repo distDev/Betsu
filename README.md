@@ -18,21 +18,28 @@ Betsu is an realtime agile planner and calendar web app made with React, Redux-T
 - Editing the name of an attachment
   
 ### In Progress
-- Calendar
-- Task filtering
-- User authorization
+- Сustom labels
 - Deleting lists
-- Copying lists
 - Deleting all tasks from the list
-- Adding a users to a task
-- Adding a due date to a task
+- Copying lists
 - Copying a task to another list
 - Moving a task to another list via modal window
+- Adding a due date to a task
+- Task completion
+- Task timer
+- Estimate task
+- User authorization
 - Adding comments to a task
-- Subscribe to notifications in a task
-- Inviting users to the board
 - Adding a board
 - Adding a board to favorites
+- Calendar
+- Task filtering
+- Adding a users to a task
+- Subscribe to notifications in a task
+- Inviting users to the board
+- Importing tasks from Trello
+- List of recently visited boards
+- Roles on the board
 
 # Screenshots
 
