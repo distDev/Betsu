@@ -32,3 +32,5 @@ export const boardApi = {
     return labels as IBoardLabels;
   },
 };
+
+const newApi = {};

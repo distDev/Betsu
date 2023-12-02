@@ -15,6 +15,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { taskApi } from "../../../../Api/task-api";
+import { taskDetailsApi } from "../../../../Api/task-details-api";
 
 type Props = {
   children: ReactNode;
@@ -42,7 +43,10 @@ const AttachmentsMenu: FC<Props> = ({ children, id, fileName }) => {
   };
 
   // изменение имени вложения
-  const updateName = async () => {};
+  const updateName = async () => {
+    await taskDetailsApi.updateAttachName({ id, name });
+    setisEditing((prev) => !prev);
+  };
 
   return (
     <Popover>
@@ -102,7 +106,7 @@ const AttachmentsMenu: FC<Props> = ({ children, id, fileName }) => {
                       autoFocus={true}
                       mt="5px"
                     />
-                    <Button onClick={onClose} mt="15px" fontWeight="normal">
+                    <Button onClick={updateName} mt="15px" fontWeight="normal">
                       Обновить
                     </Button>
                   </Box>
