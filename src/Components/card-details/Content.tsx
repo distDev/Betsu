@@ -16,6 +16,7 @@ type Props = {};
 const CardDetailsContent: FC<Props> = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const idTask = useLocation().search.replace("?task=", "");
+
   const { id: idBoard } = useParams();
 
   const { name, desc, idList, labels, attachments, checkLists } = useTask(
