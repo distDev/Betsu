@@ -7,7 +7,7 @@ Betsu is an realtime agile planner and calendar web app made with React, Redux-T
 - Kanban board
 - Add list
 - Add/delete task
-- Reorderable tasks and columns.
+- Drag tasks and columns.
 - Adding a task description
 - Changing the task description
 - Changing the name of the task
